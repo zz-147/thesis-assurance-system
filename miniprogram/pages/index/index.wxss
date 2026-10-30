@@ -1,0 +1,104 @@
+.hero {
+  padding: 16rpx 8rpx 28rpx;
+}
+
+.hero-title {
+  font-size: 50rpx;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: 1rpx;
+}
+
+.hero-sub {
+  margin-top: 10rpx;
+  font-size: 26rpx;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.collapse-hint {
+  font-size: 24rpx;
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+.due-row {
+  display: flex;
+  align-items: center;
+}
+
+.due-picker {
+  flex: 1;
+}
+
+.due-clear {
+  margin-left: 20rpx;
+  white-space: nowrap;
+}
+
+/* -- 接龙列表 ---------------------------------------------------------- */
+.list-scroll {
+  margin-bottom: 8rpx;
+}
+
+.col-item {
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 26rpx 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 18rpx rgba(15, 23, 42, 0.05);
+}
+
+.col-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+}
+
+.col-title {
+  flex: 1;
+  margin-right: 16rpx;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.4;
+  word-break: break-all;
+}
+
+.col-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 18rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx solid #f1f5f9;
+}
+
+.count-pill {
+  display: inline-block;
+  padding: 4rpx 18rpx;
+  border-radius: 999rpx;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 22rpx;
+}
+
+.due-text {
+  font-size: 22rpx;
+  color: #64748b;
+}
+
+.debug-row {
+  padding: 18rpx 0 8rpx;
+  text-align: center;
+}
+
+.debug-link {
+  display: inline-block;
+  padding: 8rpx 20rpx;
+  border: 1rpx dashed #cbd5e1;
+  border-radius: 999rpx;
+  color: #64748b;
+  font-size: 24rpx;
+}

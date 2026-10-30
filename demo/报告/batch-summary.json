@@ -1,0 +1,179 @@
+{
+  "summary": {
+    "total": 6,
+    "checked": 6,
+    "failed": 0,
+    "pass_rate": 0.0,
+    "counts": {
+      "error": 81,
+      "warning": 145,
+      "info": 0
+    },
+    "top_rules": [
+      [
+        "BODY-004",
+        133
+      ],
+      [
+        "TAB-002",
+        51
+      ],
+      [
+        "STRUCT-001",
+        12
+      ],
+      [
+        "ABS-001",
+        6
+      ],
+      [
+        "ABS-003",
+        6
+      ],
+      [
+        "TITLE-001",
+        6
+      ],
+      [
+        "TITLE-002",
+        6
+      ],
+      [
+        "TOC-001",
+        6
+      ]
+    ],
+    "per_doc": [
+      {
+        "path": "demo\\提交\\23050301001_张三_论文.docx",
+        "counts": {
+          "error": 13,
+          "warning": 24,
+          "info": 0
+        },
+        "error": 13,
+        "warning": 24,
+        "info": 0,
+        "passed": false,
+        "status": "未通过",
+        "duration_s": 1.097718,
+        "load_error": null
+      },
+      {
+        "path": "demo\\提交\\23050301002_李四_论文(1).docx",
+        "counts": {
+          "error": 14,
+          "warning": 23,
+          "info": 0
+        },
+        "error": 14,
+        "warning": 23,
+        "info": 0,
+        "passed": false,
+        "status": "未通过",
+        "duration_s": 1.211467,
+        "load_error": null
+      },
+      {
+        "path": "demo\\提交\\23050301002_李四_论文.docx",
+        "counts": {
+          "error": 14,
+          "warning": 23,
+          "info": 0
+        },
+        "error": 14,
+        "warning": 23,
+        "info": 0,
+        "passed": false,
+        "status": "未通过",
+        "duration_s": 1.191744,
+        "load_error": null
+      },
+      {
+        "path": "demo\\提交\\23050301005_钱七_论文.docx",
+        "counts": {
+          "error": 14,
+          "warning": 24,
+          "info": 0
+        },
+        "error": 14,
+        "warning": 24,
+        "info": 0,
+        "passed": false,
+        "status": "未通过",
+        "duration_s": 1.305156,
+        "load_error": null
+      },
+      {
+        "path": "demo\\提交\\23050301006_孙八_论文.docx",
+        "counts": {
+          "error": 14,
+          "warning": 25,
+          "info": 0
+        },
+        "error": 14,
+        "warning": 25,
+        "info": 0,
+        "passed": false,
+        "status": "未通过",
+        "duration_s": 1.214551,
+        "load_error": null
+      },
+      {
+        "path": "demo\\提交\\论文终稿_赵六.docx",
+        "counts": {
+          "error": 12,
+          "warning": 26,
+          "info": 0
+        },
+        "error": 12,
+        "warning": 26,
+        "info": 0,
+        "passed": false,
+        "status": "未通过",
+        "duration_s": 1.23165,
+        "load_error": null
+      }
+    ],
+    "ruleset_id": "school_default",
+    "generated_at": "2026-10-30T22:03:37+08:00"
+  },
+  "documents": [
+    {
+      "path": "demo\\提交\\23050301001_张三_论文.docx",
+      "issues": 37,
+      "error": null,
+      "duration_s": 1.0977175000007264
+    },
+    {
+      "path": "demo\\提交\\23050301002_李四_论文(1).docx",
+      "issues": 37,
+      "error": null,
+      "duration_s": 1.2114674000040395
+    },
+    {
+      "path": "demo\\提交\\23050301002_李四_论文.docx",
+      "issues": 37,
+      "error": null,
+      "duration_s": 1.1917442999983905
+    },
+    {
+      "path": "demo\\提交\\23050301005_钱七_论文.docx",
+      "issues": 38,
+      "error": null,
+      "duration_s": 1.3051555999991251
+    },
+    {
+      "path": "demo\\提交\\23050301006_孙八_论文.docx",
+      "issues": 39,
+      "error": null,
+      "duration_s": 1.2145505999942543
+    },
+    {
+      "path": "demo\\提交\\论文终稿_赵六.docx",
+      "issues": 38,
+      "error": null,
+      "duration_s": 1.231650300003821
+    }
+  ]
+}

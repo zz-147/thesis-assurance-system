@@ -1,0 +1,146 @@
+<view class="page">
+  <view class="hero">
+    <view class="hero-title">文档接龙</view>
+    <view class="hero-sub">发起一个接龙收集 .docx：同学从聊天卡片进入同一接龙提交文档，任何人可一键审核格式。</view>
+  </view>
+
+  <view class="card">
+    <view class="card-head">
+      <text class="section-title">发起接龙</text>
+      <view class="toggle" bindtap="onToggleCreate">{{createOpen ? '收起' : '＋ 填写'}}</view>
+    </view>
+
+    <view wx:if="{{createOpen}}">
+      <view class="field">
+        <view class="field-label">接龙标题 <text class="required">*</text></view>
+        <input
+          class="input"
+          value="{{form.title}}"
+          data-field="title"
+          bindinput="onFormInput"
+          maxlength="40"
+          placeholder="例如：2026 届毕业论文第一批"
+          placeholder-class="input-placeholder"
+        />
+        <view class="field-tip">{{form.title.length}}/40</view>
+      </view>
+
+      <view class="field">
+        <view class="field-label">发起人昵称 <text class="required">*</text></view>
+        <input
+          class="input"
+          value="{{form.owner}}"
+          data-field="owner"
+          bindinput="onFormInput"
+          maxlength="20"
+          placeholder="第一次使用会提示填写，只保存在本机"
+          placeholder-class="input-placeholder"
+        />
+        <view class="field-tip">当前昵称：{{nickname || '未设置'}}</view>
+      </view>
+
+      <view class="field">
+        <view class="field-label">检查规范 <text class="required">*</text></view>
+        <picker
+          mode="selector"
+          range="{{profileLabels}}"
+          value="{{profileIndex}}"
+          bindchange="onProfileChange"
+          disabled="{{profileLabels.length === 0}}"
+        >
+          <view class="picker-value {{selectedProfileLabel ? '' : 'is-placeholder'}}">{{selectedProfileLabel || '正在加载规范…'}}</view>
+        </picker>
+        <view class="field-tip">规范列表来自后端 /api/profiles；没有想要的就先用默认规范。</view>
+      </view>
+
+      <view class="field">
+        <view class="field-label">说明（可选）</view>
+        <textarea
+          class="textarea"
+          value="{{form.note}}"
+          data-field="note"
+          bindinput="onFormInput"
+          maxlength="200"
+          auto-height
+          placeholder="例如：请提交终稿，文件名写「学号+姓名」"
+          placeholder-class="input-placeholder"
+        />
+      </view>
+
+      <view class="field">
+        <view class="field-label">截止日期（可选）</view>
+        <view class="due-row">
+          <picker class="due-picker" mode="date" value="{{form.due}}" start="{{dueToday}}" bindchange="onDueChange">
+            <view class="picker-value {{form.due ? '' : 'is-placeholder'}}">{{form.due || '不限截止时间'}}</view>
+          </picker>
+          <view wx:if="{{form.due}}" class="link due-clear" bindtap="onClearDue">清除</view>
+        </view>
+      </view>
+
+      <button
+        class="btn btn-primary btn-block {{creating ? 'btn-loading' : ''}}"
+        loading="{{creating}}"
+        disabled="{{creating}}"
+        bindtap="onCreateTap"
+      >{{creating ? '创建中…' : '创建接龙'}}</button>
+      <view class="form-hint">创建成功会得到 6 位接龙码；把接龙卡片分享给同学即可一起提交。</view>
+    </view>
+
+    <view wx:else class="collapse-hint">点右上「＋ 填写」发起新的接龙；也可以直接在下方选择已有接龙提交文档。</view>
+  </view>
+
+  <view class="section-head">
+    <text class="section-title">全部接龙</text>
+    <text class="section-count">{{collections.length}} 个</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="state-box">
+    <view class="state-title">加载中…</view>
+    <view class="state-desc">正在获取接龙列表</view>
+  </view>
+
+  <view wx:elif="{{errorText}}" class="card state-box">
+    <view class="state-title">列表加载失败</view>
+    <view class="state-desc">{{errorText}}</view>
+    <view class="state-action">
+      <button class="btn btn-ghost btn-mini" bindtap="onRetry">重试</button>
+    </view>
+  </view>
+
+  <view wx:elif="{{collections.length === 0}}" class="state-box">
+    <view class="state-title">还没有接龙</view>
+    <view class="state-desc">点上面「＋ 填写」发起一个接龙，把卡片分享到班级群，同学就能进来提交 .docx。</view>
+  </view>
+
+  <scroll-view wx:else class="list-scroll" style="height: {{listHeight}}rpx" scroll-y>
+    <view
+      class="col-item"
+      wx:for="{{collections}}"
+      wx:key="code"
+      data-code="{{item.code}}"
+      bindtap="onCollectionTap"
+    >
+      <view class="col-head">
+        <text class="col-title">{{item.title}}</text>
+        <text class="code-chip">{{item.code}}</text>
+      </view>
+      <view class="meta-row">
+        <text class="muted">发起人</text>
+        <text class="meta-value">{{item.owner}}</text>
+      </view>
+      <view class="meta-row">
+        <text class="muted">检查规范</text>
+        <text class="meta-value">{{item.rulesetName}}</text>
+      </view>
+      <view class="col-foot">
+        <text class="count-pill">{{item.submissionText}}</text>
+        <text class="due-text {{item.duePast ? 'due-past' : ''}}">{{item.dueText}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="footer-tip">下拉刷新列表 · 点任意接龙进入详情提交/审核</view>
+  <view class="debug-row">
+    <view class="debug-link" bindtap="onDiagnoseTap">网络自检 · 手机连不上后端时点这里</view>
+  </view>
+</view>

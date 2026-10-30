@@ -1,0 +1,2571 @@
+{
+  "base_profile": "school_default",
+  "source_file": "D:\\zdsh\\work\\thesis-format\\writing_standard_clean.txt",
+  "model": "deepseek-chat",
+  "extraction": {
+    "base_profile": "school_default",
+    "base_rules_count": 38,
+    "model": "deepseek-chat",
+    "spec_chars": 9455,
+    "summary": "现有规则库基本覆盖规范要求，仅需新增图注释、表注释、附录标题、多项附录编号、外文资料翻译格式和注释格式等规则，其余内容要求无法程序化检查。",
+    "candidates": [
+      {
+        "id": "PAGE-001",
+        "name": "纸张为 A4",
+        "category": "page",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "一律用 A4 规格纸输出",
+        "expected": {
+          "page_width_cm": 21.0,
+          "page_height_cm": 29.7,
+          "orientation": "portrait"
+        },
+        "source": "L66",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "PAGE-002",
+        "name": "页边距、装订线、页眉页脚距边界",
+        "category": "page",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "上下页边距 2.54cm，左右 2cm，左侧装订，装订线 1cm；页眉和页脚距边界均为 2cm",
+        "expected": {
+          "margin_top_cm": 2.54,
+          "margin_bottom_cm": 2.54,
+          "margin_left_cm": 2.0,
+          "margin_right_cm": 2.0,
+          "gutter_cm": 1.0,
+          "gutter_position": "left",
+          "header_distance_cm": 2.0,
+          "footer_distance_cm": 2.0
+        },
+        "source": "L66",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "PAGE-003",
+        "name": "文档网格（每页 31 行、每行 35 字符）",
+        "category": "page",
+        "phase": "P0",
+        "severity": "warning",
+        "profiles": [
+          "*"
+        ],
+        "spec": "指定行和字符网格：中文小四号宋体、西文小四号 Times New Roman，每页 31 行、每行 35 字符，栏数 1，正文行距 1.5 倍",
+        "expected": {
+          "chars_per_line": 35,
+          "lines_per_page": 31,
+          "columns": 1,
+          "grid_font_cn": "宋体",
+          "grid_font_ascii": "Times New Roman",
+          "grid_size_pt": 12,
+          "line_pitch_twips": 312
+        },
+        "source": "L66",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "PAGE-004",
+        "name": "分节与页眉页脚继承",
+        "category": "page",
+        "phase": "P1",
+        "severity": "warning",
+        "profiles": [
+          "*"
+        ],
+        "spec": "摘要→目录、前言→正文等部分存在页眉页脚/页码格式切换，需按节组织；封面、承诺书不显示页眉页码",
+        "expected": {
+          "sections_min": 2,
+          "cover_no_header_footer": true
+        },
+        "source": "L69–L70、L111–L124",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "BODY-001",
+        "name": "正文字体",
+        "category": "body",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "正文：小四号宋体，西文小四号 Times New Roman",
+        "expected": {
+          "size_pt": 12,
+          "east_asia": "宋体",
+          "ascii": "Times New Roman",
+          "bold": false
+        },
+        "source": "L91",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "BODY-002",
+        "name": "正文行距",
+        "category": "body",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "正文 1.5 倍行距",
+        "expected": {
+          "line_spacing": 1.5
+        },
+        "source": "L91",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "BODY-003",
+        "name": "正文首行缩进 2 字符",
+        "category": "body",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "每段首行缩进 2 个字符",
+        "expected": {
+          "first_line_chars": 200
+        },
+        "source": "L76、L91",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "BODY-004",
+        "name": "正文两端对齐",
+        "category": "body",
+        "phase": "P0",
+        "severity": "warning",
+        "profiles": [
+          "*"
+        ],
+        "spec": "两端对齐",
+        "expected": {
+          "alignment": "justify"
+        },
+        "source": "L91",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "HEAD-001",
+        "name": "一级标题（理工农：第N章）",
+        "category": "heading",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "sci_eng"
+        ],
+        "spec": "“第N章”与标题文字之间空 1 格，三号黑体，居中，1.5 倍行距，段前段后各 1 行",
+        "expected": {
+          "pattern": "^第[一二三四五六七八九十百零〇0-9]+章\\s+.+$",
+          "size_pt": 16,
+          "east_asia": "黑体",
+          "ascii": "Times New Roman",
+          "bold": false,
+          "alignment": "center",
+          "line_spacing": 1.5,
+          "before_lines": 100,
+          "after_lines": 100
+        },
+        "source": "L88",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "HEAD-002",
+        "name": "二级标题（理工农：N.N）",
+        "category": "heading",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "sci_eng"
+        ],
+        "spec": "“节”为二级标题，四号黑体左起顶格，序号与标题文字间空 1 格，1.5 倍行距，段前段后各 0.5 行",
+        "expected": {
+          "pattern": "^\\d+\\.\\d+\\s+.+$",
+          "size_pt": 14,
+          "east_asia": "黑体",
+          "bold": false,
+          "alignment": "left",
+          "line_spacing": 1.5,
+          "before_lines": 50,
+          "after_lines": 50
+        },
+        "source": "L88",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "HEAD-003",
+        "name": "三级标题（理工农：N.N.N）",
+        "category": "heading",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "sci_eng"
+        ],
+        "spec": "“小节”为三级标题，小四号黑体左起顶格，序号后空 1 格，1.5 倍行距，段前 0.5 行、段后无间距",
+        "expected": {
+          "pattern": "^\\d+\\.\\d+\\.\\d+\\s+.+$",
+          "size_pt": 12,
+          "east_asia": "黑体",
+          "bold": false,
+          "alignment": "left",
+          "line_spacing": 1.5,
+          "before_lines": 50,
+          "after_lines": 0
+        },
+        "source": "L88",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "HEAD-004",
+        "name": "四级及以下标题",
+        "category": "heading",
+        "phase": "P1",
+        "severity": "warning",
+        "profiles": [
+          "sci_eng"
+        ],
+        "spec": "四级标题用 N.N.N.N，小四号宋体加粗；四级以下依次用（1）→①→A→a，小四号宋体，左起顶格，1.5 倍行距，段前段后无间距",
+        "expected": {
+          "l4": {
+            "pattern": "^\\d+\\.\\d+\\.\\d+\\.\\d+\\s*.+$",
+            "size_pt": 12,
+            "east_asia": "宋体",
+            "bold": true
+          },
+          "l5_plus": {
+            "patterns": [
+              "^（\\d+）",
+              "^[①-⑳]",
+              "^[A-Z][.、]",
+              "^[a-z][.、]"
+            ],
+            "size_pt": 12,
+            "east_asia": "宋体"
+          },
+          "before_lines": 0,
+          "after_lines": 0
+        },
+        "source": "L88",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "HEAD-005",
+        "name": "文经管标题体系",
+        "category": "heading",
+        "phase": "P1",
+        "severity": "error",
+        "profiles": [
+          "humanities"
+        ],
+        "spec": "章=“一、”（三号黑体，首行缩进 2 字符，段前 1 行、段后无间距）；节=“（一）”（四号黑体，首行缩进 2 字符，段前 0.5 行）；小节=“1.”（小四黑体，首行缩进 2 字符，段前段后无间距）",
+        "expected": {
+          "l1": {
+            "pattern": "^[一二三四五六七八九十]+、",
+            "size_pt": 16,
+            "east_asia": "黑体",
+            "first_line_chars": 200,
+            "before_lines": 100,
+            "after_lines": 0
+          },
+          "l2": {
+            "pattern": "^（[一二三四五六七八九十]+）",
+            "size_pt": 14,
+            "east_asia": "黑体",
+            "first_line_chars": 200,
+            "before_lines": 50,
+            "after_lines": 0
+          },
+          "l3": {
+            "pattern": "^\\d+[.、]",
+            "size_pt": 12,
+            "east_asia": "黑体",
+            "first_line_chars": 200,
+            "before_lines": 0,
+            "after_lines": 0
+          }
+        },
+        "source": "L89",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "HEAD-006",
+        "name": "标题编号合法性与连续性",
+        "category": "heading",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "标题层级依次标出，编号必须连续、不得跳级/重复；目录中的标题要与正文一致",
+        "expected": {
+          "no_level_skip": true,
+          "no_duplicate_number": true,
+          "sequential": true
+        },
+        "source": "L88–L89、L10",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "HEAD-007",
+        "name": "前言/结论/致谢标题",
+        "category": "heading",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "“前言”“结论”“致谢”用三号黑体，两字中间空 2 格；理工农居中，文经管首行缩进 2 字符；1.5 倍行距，段前 1 行；结论、致谢格式同前言",
+        "expected": {
+          "texts": [
+            "前言",
+            "结论",
+            "致谢"
+          ],
+          "size_pt": 16,
+          "east_asia": "黑体",
+          "line_spacing": 1.5,
+          "before_lines": 100,
+          "alignment": {
+            "sci_eng": "center",
+            "humanities": "left"
+          }
+        },
+        "source": "L85–L86、L97–L99",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "TITLE-001",
+        "name": "中文题目",
+        "category": "front",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "中文题目三号黑体，可分成 1 或 2 行居中打印，1.5 倍行距，段前段后各 1 行",
+        "expected": {
+          "size_pt": 16,
+          "east_asia": "黑体",
+          "alignment": "center",
+          "line_spacing": 1.5,
+          "before_lines": 100,
+          "after_lines": 100,
+          "max_lines": 2
+        },
+        "source": "L7、L72",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "TITLE-002",
+        "name": "英文题目",
+        "category": "front",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "英文题目三号首字母大写 Times New Roman，加粗，可分成 1–3 行居中，1.5 倍行距，段前段后各 1 行",
+        "expected": {
+          "size_pt": 16,
+          "ascii": "Times New Roman",
+          "bold": true,
+          "alignment": "center",
+          "line_spacing": 1.5,
+          "before_lines": 100,
+          "after_lines": 100,
+          "max_lines": 3
+        },
+        "source": "L73",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "ABS-001",
+        "name": "中文摘要标题",
+        "category": "front",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "中文题目下一行居中打印“摘要”二字（三号黑体），字间空 2 格，1.5 倍行距，段前段后各 1 行",
+        "expected": {
+          "text": "摘要",
+          "size_pt": 16,
+          "east_asia": "黑体",
+          "alignment": "center",
+          "line_spacing": 1.5,
+          "before_lines": 100,
+          "after_lines": 100,
+          "char_gap": 2
+        },
+        "source": "L75",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "ABS-002",
+        "name": "中文摘要正文",
+        "category": "front",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "摘要内容小四号宋体，每段首行缩进 2 字符，1.5 倍行距，两端对齐；中文摘要 300～600 字（设计类 200～400 字）",
+        "expected": {
+          "size_pt": 12,
+          "east_asia": "宋体",
+          "ascii": "Times New Roman",
+          "first_line_chars": 200,
+          "line_spacing": 1.5,
+          "alignment": "justify",
+          "length_range": [
+            300,
+            600
+          ]
+        },
+        "source": "L76、L8、L37",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "ABS-003",
+        "name": "英文摘要标题",
+        "category": "front",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "英文题目下 1 行居中打印“Abstract”（三号 Times New Roman），1.5 倍行距，段前段后各 1 行",
+        "expected": {
+          "text": "Abstract",
+          "size_pt": 16,
+          "ascii": "Times New Roman",
+          "alignment": "center",
+          "line_spacing": 1.5,
+          "before_lines": 100,
+          "after_lines": 100
+        },
+        "source": "L77",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "ABS-004",
+        "name": "英文摘要正文",
+        "category": "front",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "英文摘要内容小四号 Times New Roman，每段首行缩进 2 字符，1.5 倍行距，两端对齐",
+        "expected": {
+          "size_pt": 12,
+          "ascii": "Times New Roman",
+          "first_line_chars": 200,
+          "line_spacing": 1.5,
+          "alignment": "justify"
+        },
+        "source": "L78",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "KW-001",
+        "name": "中文关键词",
+        "category": "front",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "中文摘要内容下 1 行打印“关键词”三字（小四号黑体，左对齐，首行缩进 2 字符，1.5 倍行距，段前段后各 1 行），其后关键词小四号宋体；3–5 个，分号隔开，最后一个后不加标点",
+        "expected": {
+          "label": "关键词",
+          "label_size_pt": 12,
+          "label_east_asia": "黑体",
+          "body_size_pt": 12,
+          "body_east_asia": "宋体",
+          "count_range": [
+            3,
+            5
+          ],
+          "separator": "；",
+          "trailing_punctuation": false,
+          "first_line_chars": 200,
+          "before_lines": 100,
+          "after_lines": 100
+        },
+        "source": "L80、L9",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "KW-002",
+        "name": "英文关键词",
+        "category": "front",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "英文摘要内容下一行打印“Key words”（小四号 Times New Roman，加粗，左对齐，首行缩进 2 字符，段前段后各 1 行），其后关键词小四号 Times New Roman；分号（加 1 个半角字符）隔开，最后一个后无标点",
+        "expected": {
+          "label": "Key words",
+          "label_size_pt": 12,
+          "label_ascii": "Times New Roman",
+          "label_bold": true,
+          "body_size_pt": 12,
+          "body_ascii": "Times New Roman",
+          "count_range": [
+            3,
+            5
+          ],
+          "separator": "; ",
+          "trailing_punctuation": false
+        },
+        "source": "L81",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "TOC-001",
+        "name": "目录标题与条目样式",
+        "category": "toc",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "“目录”二字三号黑体居中，两字中间空 2 格，1.5 倍行距，段前段后各 1 行；一级标题小四号黑体，其他级别小四号宋体；阿拉伯数字用 Times New Roman；一级顶格、二级缩进 2 字符、三级缩进 4 字符",
+        "expected": {
+          "title": "目录",
+          "title_size_pt": 16,
+          "title_east_asia": "黑体",
+          "title_alignment": "center",
+          "entry_size_pt": 12,
+          "level1_east_asia": "黑体",
+          "others_east_asia": "宋体",
+          "number_ascii": "Times New Roman",
+          "indent_chars": {
+            "1": 0,
+            "2": 200,
+            "3": 400
+          }
+        },
+        "source": "L82–L83、L10",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "TOC-002",
+        "name": "目录完整性",
+        "category": "toc",
+        "phase": "P1",
+        "severity": "warning",
+        "profiles": [
+          "*"
+        ],
+        "spec": "目录列出论文的一级、二级和三级标题并标明页码；目录中的标题与正文标题一致，页码与正文一致",
+        "expected": {
+          "includes_levels": [
+            1,
+            2,
+            3
+          ],
+          "matches_headings": true,
+          "page_numbers_updateable": true
+        },
+        "source": "L10、L83",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "HF-001",
+        "name": "页眉样式",
+        "category": "header_footer",
+        "phase": "P1",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "从摘要到最后一页均有页眉；小五号宋体，1 倍行距，居中；文字下边框为双实线 0.5 磅",
+        "expected": {
+          "size_pt": 9,
+          "east_asia": "宋体",
+          "line_spacing": 1.0,
+          "alignment": "center",
+          "bottom_border": {
+            "style": "double",
+            "size_pt": 0.5
+          },
+          "starts_at": "摘要"
+        },
+        "source": "L69",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "HF-002",
+        "name": "页眉文字",
+        "category": "header_footer",
+        "phase": "P1",
+        "severity": "warning",
+        "profiles": [
+          "*"
+        ],
+        "spec": "页眉文字与封面对照，分别为“商丘学院应用科技学院毕业论文”或“商丘学院应用科技学院毕业设计说明书”",
+        "expected": {
+          "allowed_texts": [
+            "商丘学院应用科技学院毕业论文",
+            "商丘学院应用科技学院毕业设计说明书"
+          ],
+          "match": "与封面/题目类型一致"
+        },
+        "source": "L69",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "HF-003",
+        "name": "页码格式",
+        "category": "header_footer",
+        "phase": "P1",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "从摘要到目录页码为罗马数字；从前言到最后一页为阿拉伯数字；字体小五号 Times New Roman，1 倍行距，页面底部居中",
+        "expected": {
+          "roman_section": "摘要→目录",
+          "arabic_section": "前言→末尾",
+          "size_pt": 9,
+          "ascii": "Times New Roman",
+          "line_spacing": 1.0,
+          "alignment": "center",
+          "position": "bottom"
+        },
+        "source": "L70",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "FIG-001",
+        "name": "图题（图号+图名）",
+        "category": "float",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "图名置于图下方居中；图名序号五号 Times New Roman，文字五号楷体，序号与文字间空 1 个半角字符，1.5 倍行距",
+        "expected": {
+          "position": "below",
+          "alignment": "center",
+          "number_size_pt": 10.5,
+          "number_ascii": "Times New Roman",
+          "text_size_pt": 10.5,
+          "text_east_asia": "楷体",
+          "separator": " ",
+          "line_spacing": 1.5
+        },
+        "source": "L92",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "FIG-002",
+        "name": "图编号规则与连续性",
+        "category": "float",
+        "phase": "P1",
+        "severity": "warning",
+        "profiles": [
+          "*"
+        ],
+        "spec": "理工农：图号逐章单独编序（如图6-10）；文经管：按出现顺序编号（图1、图2…）；图号必须连续，不得重复或跳跃；仅有一图时图名前加“附图”",
+        "expected": {
+          "sci_eng": "^图\\d+-\\d+",
+          "humanities": "^图\\d+",
+          "continuous": true,
+          "unique": true
+        },
+        "source": "L61、L93",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "TAB-001",
+        "name": "三线表样式",
+        "category": "float",
+        "phase": "P1",
+        "severity": "warning",
+        "profiles": [
+          "*"
+        ],
+        "spec": "表格为三线表；表格结构简洁，各栏标注量和单位；表内数字上下对齐，不得用“同上/同左”",
+        "expected": {
+          "style": "three_line",
+          "header_row_rule": "0.75pt bottom border",
+          "no_vertical_borders": true,
+          "no_inner_horizontal_borders": true,
+          "top_bottom_border_pt": 1.5
+        },
+        "source": "L60、L95",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "TAB-002",
+        "name": "表题与表内文字",
+        "category": "float",
+        "phase": "P1",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "表名置于表格上方居中；表名序号五号 Times New Roman，标题五号楷体，中间空 1 个半角字符，1.5 倍行距；表内文字五号宋体，1.5 倍行距，居中；注释在表格下方小五号宋体、左对齐、首行缩进 2 字符",
+        "expected": {
+          "position": "above",
+          "alignment": "center",
+          "number_size_pt": 10.5,
+          "number_ascii": "Times New Roman",
+          "text_size_pt": 10.5,
+          "text_east_asia": "楷体",
+          "cell_size_pt": 10.5,
+          "cell_east_asia": "宋体",
+          "cell_alignment": "center",
+          "cell_line_spacing": 1.5,
+          "note_size_pt": 9,
+          "note_first_line_chars": 200
+        },
+        "source": "L95、L60",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "EQ-001",
+        "name": "公式与公式编号",
+        "category": "float",
+        "phase": "P1",
+        "severity": "warning",
+        "profiles": [
+          "*"
+        ],
+        "spec": "公式另起一行，居中（或自行调整美观）；重要/后文引用的公式加序号并用圆括号，序号右对齐，序号用阿拉伯数字；公式字体小四号，中文宋体，西文 Times New Roman，1.5 倍行距；公式与序号之间不加线段",
+        "expected": {
+          "own_line": true,
+          "number_in_parentheses": true,
+          "number_alignment": "right",
+          "size_pt": 12,
+          "east_asia": "宋体",
+          "ascii": "Times New Roman",
+          "line_spacing": 1.5,
+          "numbering": {
+            "sci_eng": "^（\\d+-\\d+）$",
+            "humanities": "^（\\d+）$"
+          }
+        },
+        "source": "L62、L96",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "REF-001",
+        "name": "参考文献标题",
+        "category": "references",
+        "phase": "P0",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "“参考文献”四个字三号黑体，居中，1.5 倍行距，段前段后各 1 行",
+        "expected": {
+          "text": "参考文献",
+          "size_pt": 16,
+          "east_asia": "黑体",
+          "alignment": "center",
+          "line_spacing": 1.5,
+          "before_lines": 100,
+          "after_lines": 100
+        },
+        "source": "L102",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "REF-002",
+        "name": "参考文献条目格式",
+        "category": "references",
+        "phase": "P1",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "条目中文字体小四号宋体、西文小四号 Times New Roman，1.5 倍行距，段前段后无间距；序号写在方括号内，每条左对齐，悬挂缩进 2 字符",
+        "expected": {
+          "size_pt": 12,
+          "east_asia": "宋体",
+          "ascii": "Times New Roman",
+          "line_spacing": 1.5,
+          "before_lines": 0,
+          "after_lines": 0,
+          "number_format": "^\\[\\d+\\]",
+          "hanging_indent_chars": 200
+        },
+        "source": "L102–L104",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "REF-003",
+        "name": "正文引用标注与著录格式",
+        "category": "references",
+        "phase": "P1",
+        "severity": "warning",
+        "profiles": [
+          "*"
+        ],
+        "spec": "正文中按引证先后顺序用阿拉伯数字连续编号，序号置于方括号内作上角标（如“……[5]”）；按 GB/T 7714-2015 著录（8 类示例）",
+        "expected": {
+          "in_text_citation_superscript": true,
+          "sequential_numbering": true,
+          "style": "GB/T 7714-2015",
+          "categories": [
+            "J",
+            "M",
+            "C",
+            "D",
+            "P",
+            "S",
+            "N",
+            "DB/CP/EB"
+          ]
+        },
+        "source": "L103–L104、L17–L33",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "STRUCT-001",
+        "name": "装订顺序完整",
+        "category": "structure",
+        "phase": "P1",
+        "severity": "warning",
+        "profiles": [
+          "*"
+        ],
+        "spec": "按顺序装订：封面→诚信承诺书→中文摘要→英文摘要→目录→正文→致谢→参考文献→附录→外文资料翻译→封底",
+        "expected": {
+          "order": [
+            "封面",
+            "诚信承诺书",
+            "中文摘要",
+            "英文摘要",
+            "目录",
+            "正文",
+            "致谢",
+            "参考文献",
+            "附录",
+            "外文资料翻译",
+            "封底"
+          ]
+        },
+        "source": "L111–L124",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "MISC-001",
+        "name": "数字用法",
+        "category": "structure",
+        "phase": "P1",
+        "severity": "info",
+        "profiles": [
+          "*"
+        ],
+        "spec": "公历世纪、年代、年月日、时间、计数计量用阿拉伯数字；年份不能简写；有效数字全部写出",
+        "expected": {
+          "year_full": true,
+          "significant_digits": true
+        },
+        "source": "L63",
+        "confidence": 1.0,
+        "note": "LLM 评估：与现有规则一致"
+      },
+      {
+        "id": "FIG-003",
+        "name": "图注释格式",
+        "category": "float",
+        "phase": "P1",
+        "severity": "warning",
+        "profiles": [
+          "*"
+        ],
+        "spec": "注释置于图名下方，1.5倍行距，字体为小五号宋体，左对齐，首行缩进2个字符。",
+        "expected": {
+          "position": "below_figure_title",
+          "size_pt": 9,
+          "east_asia": "宋体",
+          "alignment": "left",
+          "first_line_chars": 200,
+          "line_spacing": 1.5
+        },
+        "source": "L92",
+        "confidence": 0.9,
+        "note": "规范明确要求图注释的格式，现有规则库未包含。"
+      },
+      {
+        "id": "TAB-003",
+        "name": "表注释格式",
+        "category": "float",
+        "phase": "P1",
+        "severity": "warning",
+        "profiles": [
+          "*"
+        ],
+        "spec": "注释置于表格下方，1.5倍行距，字体为小五号宋体，左对齐，首行缩进2个字符。",
+        "expected": {
+          "position": "below_table",
+          "size_pt": 9,
+          "east_asia": "宋体",
+          "alignment": "left",
+          "first_line_chars": 200,
+          "line_spacing": 1.5
+        },
+        "source": "L95",
+        "confidence": 0.9,
+        "note": "规范明确要求表注释的格式，现有规则库未包含。"
+      },
+      {
+        "id": "APP-001",
+        "name": "附录标题格式",
+        "category": "structure",
+        "phase": "P1",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "“附录”二字用三号黑体居中打印，两字中间空2格，下一行是附录题目（四号黑体居中打印），附录内容格式同正文。",
+        "expected": {
+          "title_text": "附录",
+          "title_size_pt": 16,
+          "title_east_asia": "黑体",
+          "title_alignment": "center",
+          "title_char_gap": 2,
+          "subtitle_size_pt": 14,
+          "subtitle_east_asia": "黑体",
+          "subtitle_alignment": "center",
+          "content_format_same_as_body": true
+        },
+        "source": "L106",
+        "confidence": 0.9,
+        "note": "规范明确要求附录标题格式，现有规则库未包含。"
+      },
+      {
+        "id": "APP-002",
+        "name": "多项附录编号",
+        "category": "structure",
+        "phase": "P1",
+        "severity": "warning",
+        "profiles": [
+          "*"
+        ],
+        "spec": "若有多项附录，附录题目可按顺序编号（附录A、附录B，……）。",
+        "expected": {
+          "multiple_appendix_numbering": true,
+          "pattern": "^附录[A-Z]"
+        },
+        "source": "L107",
+        "confidence": 0.9,
+        "note": "规范明确要求多项附录的编号规则，现有规则库未包含。"
+      },
+      {
+        "id": "TRANS-001",
+        "name": "外文资料翻译格式",
+        "category": "structure",
+        "phase": "P1",
+        "severity": "error",
+        "profiles": [
+          "*"
+        ],
+        "spec": "“外文资料译文”用三号黑体居中打印，下一行打印外文原文内容（小四Times New Roman字体），另起新页打印中文翻译（小四宋体）。",
+        "expected": {
+          "title_text": "外文资料译文",
+          "title_size_pt": 16,
+          "title_east_asia": "黑体",
+          "title_alignment": "center",
+          "original_text_size_pt": 12,
+          "original_text_ascii": "Times New Roman",
+          "translation_text_size_pt": 12,
+          "translation_text_east_asia": "宋体",
+          "new_page_for_translation": true
+        },
+        "source": "L109",
+        "confidence": 0.9,
+        "note": "规范明确要求外文资料翻译的格式，现有规则库未包含。"
+      },
+      {
+        "id": "NOTE-001",
+        "name": "注释格式",
+        "category": "structure",
+        "phase": "P1",
+        "severity": "warning",
+        "profiles": [
+          "*"
+        ],
+        "spec": "注释：在毕业论文写作过程中，有些问题需要在正文之外加以阐述和说明的，作为注释放在当页页脚。",
+        "expected": {
+          "position": "page_footer",
+          "size_pt": 9,
+          "east_asia": "宋体",
+          "line_spacing": 1.0
+        },
+        "source": "L33",
+        "confidence": 0.8,
+        "note": "规范要求注释放在当页页脚，但未明确字体字号，根据上下文推断为小五号宋体，1倍行距。"
+      }
+    ],
+    "unmapped": [
+      {
+        "text": "摘要应具有独立性和自含性，即不阅读论文全文也可获得必要的信息，是一篇完整的短文，可独立使用，可引用，可用于工艺推广。",
+        "source": "L8",
+        "reason": "内容要求，无法程序化检查。"
+      },
+      {
+        "text": "摘要中不使用“本文”、“作者”等作为主语，应采用“对…进行了研究”、“报告了…现状”、“进行了…调查”等表达方式。",
+        "source": "L8",
+        "reason": "写作风格要求，无法程序化检查。"
+      },
+      {
+        "text": "英文摘要应与中文摘要内容相符。",
+        "source": "L8",
+        "reason": "内容一致性检查，难以程序化。"
+      },
+      {
+        "text": "关键词是为了文献标引工作从论文中选取出来用以表示全文主体内容信息款目的单词或术语。",
+        "source": "L9",
+        "reason": "定义性描述，无法程序化检查。"
+      },
+      {
+        "text": "从摘要中挑选或概括出3～5个最能表达主要内容的词作为关键词。",
+        "source": "L9",
+        "reason": "关键词选取质量，无法程序化检查。"
+      },
+      {
+        "text": "目录中的标题要与正文中的标题一致，页码要与正文中的页码相一致。",
+        "source": "L10",
+        "reason": "一致性检查需要复杂逻辑，现有规则TOC-002已部分覆盖，但完全程序化困难。"
+      },
+      {
+        "text": "前言（引言）：是论文的开头，主要说明国内外相关研究现状及现实意义、对所研究问题的认识，并提出论文的中心论点等。",
+        "source": "L12",
+        "reason": "内容要求，无法程序化检查。"
+      },
+      {
+        "text": "本论：是毕业论文的主体，包括研究内容与方法、结果与分析（讨论）、结论与建议等。在本部分要对所运用分析解决问题的理论和方法、研究内容与结果、论证的观点等作出阐述，写作时应注意区别那些是已知的（前人已有的的研究），哪些是作者首次提出来的，哪些是经过作者改进的，须交代清楚，尽量反映出自己的研究能力和学术水平。",
+        "source": "L13",
+        "reason": "内容与写作要求，无法程序化检查。"
+      },
+      {
+        "text": "结论：是毕业论文的收尾部分，是围绕本论所作的结束语。其基本要点就是总结全文、加深题意，要概括准确、措辞严谨、语意清楚，不能模棱两可、含糊其词，且肯定和否定要明确，突出研究的新进展或主要结论性成果。",
+        "source": "L14",
+        "reason": "内容与写作要求，无法程序化检查。"
+      },
+      {
+        "text": "致谢：简述自己完成毕业论文工作的体会，并对指导教师和协助完成毕业论文的有关人员表达谢意。",
+        "source": "L15",
+        "reason": "内容要求，无法程序化检查。"
+      },
+      {
+        "text": "参考文献一般要著录最必要、最新的文献，且只著录公开发表的文献。",
+        "source": "L16",
+        "reason": "文献选择要求，无法程序化检查。"
+      },
+      {
+        "text": "参考文献中作者不超过三位时全部列出，超过三位时只列前三位，后面加“等”或“etc”；作者姓名之间用逗号隔开；中外人名一律采用姓在前、名在后的著录法。",
+        "source": "L16",
+        "reason": "著录细节，部分可程序化但复杂，现有规则REF-003已覆盖部分，但作者数量等未完全覆盖。"
+      },
+      {
+        "text": "表格中各栏都应标注量和相应的单位。",
+        "source": "L60",
+        "reason": "内容要求，无法程序化检查。"
+      },
+      {
+        "text": "表格内数字须上下对齐，相邻栏内的数值相同时，不能用“同上”、“同左”和其它类似词汇，应一一重新标注。",
+        "source": "L60",
+        "reason": "内容与格式细节，难以程序化检查。"
+      },
+      {
+        "text": "绘图必须工整、清晰、规范。其中机械零件图按机械制图规格要求；示意图应能清楚反映图示内容。",
+        "source": "L94",
+        "reason": "质量要求，无法程序化检查。"
+      },
+      {
+        "text": "公式原则上居中，若公式较长，请自定，美观即可。",
+        "source": "L96",
+        "reason": "美观性判断，无法程序化检查。"
+      },
+      {
+        "text": "软件程序代码清单要按软件文档格式附在论文后面，不附在论文内。",
+        "source": "L64",
+        "reason": "内容组织要求，无法程序化检查。"
+      },
+      {
+        "text": "毕业论文（设计说明书）应采用汉语（外语专业用外语）撰写。",
+        "source": "L66",
+        "reason": "语言选择，无法程序化检查。"
+      },
+      {
+        "text": "封面（按规定格式打印）",
+        "source": "L67",
+        "reason": "格式由模板规定，无法程序化检查。"
+      },
+      {
+        "text": "承诺书（按规定格式打印，手写签字）",
+        "source": "L68",
+        "reason": "手写签字，无法程序化检查。"
+      },
+      {
+        "text": "用统一封面装订成册。",
+        "source": "L66",
+        "reason": "物理装订要求，无法程序化检查。"
+      },
+      {
+        "text": "毕业论文或毕业设计说明书按以下顺序装订：...",
+        "source": "L112-L124",
+        "reason": "装订顺序，现有规则STRUCT-001已覆盖，但物理装订无法程序化检查。"
+      },
+      {
+        "text": "个别专业可以结合本专业特点参照执行。",
+        "source": "L125",
+        "reason": "灵活性条款，无法程序化检查。"
+      }
+    ],
+    "dropped": []
+  },
+  "diff": {
+    "base_profile": "school_default",
+    "counts": {
+      "keep": 38,
+      "modify": 0,
+      "new": 6
+    },
+    "uncovered_existing": [],
+    "diffs": [
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "PAGE-001",
+          "name": "纸张为 A4",
+          "category": "page",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "一律用 A4 规格纸输出",
+          "expected": {
+            "page_width_cm": 21.0,
+            "page_height_cm": 29.7,
+            "orientation": "portrait"
+          },
+          "source": "L66",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "PAGE-001",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "PAGE-002",
+          "name": "页边距、装订线、页眉页脚距边界",
+          "category": "page",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "上下页边距 2.54cm，左右 2cm，左侧装订，装订线 1cm；页眉和页脚距边界均为 2cm",
+          "expected": {
+            "margin_top_cm": 2.54,
+            "margin_bottom_cm": 2.54,
+            "margin_left_cm": 2.0,
+            "margin_right_cm": 2.0,
+            "gutter_cm": 1.0,
+            "gutter_position": "left",
+            "header_distance_cm": 2.0,
+            "footer_distance_cm": 2.0
+          },
+          "source": "L66",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "PAGE-002",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "PAGE-003",
+          "name": "文档网格（每页 31 行、每行 35 字符）",
+          "category": "page",
+          "phase": "P0",
+          "severity": "warning",
+          "profiles": [
+            "*"
+          ],
+          "spec": "指定行和字符网格：中文小四号宋体、西文小四号 Times New Roman，每页 31 行、每行 35 字符，栏数 1，正文行距 1.5 倍",
+          "expected": {
+            "chars_per_line": 35,
+            "lines_per_page": 31,
+            "columns": 1,
+            "grid_font_cn": "宋体",
+            "grid_font_ascii": "Times New Roman",
+            "grid_size_pt": 12,
+            "line_pitch_twips": 312
+          },
+          "source": "L66",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "PAGE-003",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "PAGE-004",
+          "name": "分节与页眉页脚继承",
+          "category": "page",
+          "phase": "P1",
+          "severity": "warning",
+          "profiles": [
+            "*"
+          ],
+          "spec": "摘要→目录、前言→正文等部分存在页眉页脚/页码格式切换，需按节组织；封面、承诺书不显示页眉页码",
+          "expected": {
+            "sections_min": 2,
+            "cover_no_header_footer": true
+          },
+          "source": "L69–L70、L111–L124",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "PAGE-004",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "BODY-001",
+          "name": "正文字体",
+          "category": "body",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "正文：小四号宋体，西文小四号 Times New Roman",
+          "expected": {
+            "size_pt": 12,
+            "east_asia": "宋体",
+            "ascii": "Times New Roman",
+            "bold": false
+          },
+          "source": "L91",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "BODY-001",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "BODY-002",
+          "name": "正文行距",
+          "category": "body",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "正文 1.5 倍行距",
+          "expected": {
+            "line_spacing": 1.5
+          },
+          "source": "L91",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "BODY-002",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "BODY-003",
+          "name": "正文首行缩进 2 字符",
+          "category": "body",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "每段首行缩进 2 个字符",
+          "expected": {
+            "first_line_chars": 200
+          },
+          "source": "L76、L91",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "BODY-003",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "BODY-004",
+          "name": "正文两端对齐",
+          "category": "body",
+          "phase": "P0",
+          "severity": "warning",
+          "profiles": [
+            "*"
+          ],
+          "spec": "两端对齐",
+          "expected": {
+            "alignment": "justify"
+          },
+          "source": "L91",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "BODY-004",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "HEAD-001",
+          "name": "一级标题（理工农：第N章）",
+          "category": "heading",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "sci_eng"
+          ],
+          "spec": "“第N章”与标题文字之间空 1 格，三号黑体，居中，1.5 倍行距，段前段后各 1 行",
+          "expected": {
+            "pattern": "^第[一二三四五六七八九十百零〇0-9]+章\\s+.+$",
+            "size_pt": 16,
+            "east_asia": "黑体",
+            "ascii": "Times New Roman",
+            "bold": false,
+            "alignment": "center",
+            "line_spacing": 1.5,
+            "before_lines": 100,
+            "after_lines": 100
+          },
+          "source": "L88",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "HEAD-001",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "HEAD-002",
+          "name": "二级标题（理工农：N.N）",
+          "category": "heading",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "sci_eng"
+          ],
+          "spec": "“节”为二级标题，四号黑体左起顶格，序号与标题文字间空 1 格，1.5 倍行距，段前段后各 0.5 行",
+          "expected": {
+            "pattern": "^\\d+\\.\\d+\\s+.+$",
+            "size_pt": 14,
+            "east_asia": "黑体",
+            "bold": false,
+            "alignment": "left",
+            "line_spacing": 1.5,
+            "before_lines": 50,
+            "after_lines": 50
+          },
+          "source": "L88",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "HEAD-002",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "HEAD-003",
+          "name": "三级标题（理工农：N.N.N）",
+          "category": "heading",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "sci_eng"
+          ],
+          "spec": "“小节”为三级标题，小四号黑体左起顶格，序号后空 1 格，1.5 倍行距，段前 0.5 行、段后无间距",
+          "expected": {
+            "pattern": "^\\d+\\.\\d+\\.\\d+\\s+.+$",
+            "size_pt": 12,
+            "east_asia": "黑体",
+            "bold": false,
+            "alignment": "left",
+            "line_spacing": 1.5,
+            "before_lines": 50,
+            "after_lines": 0
+          },
+          "source": "L88",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "HEAD-003",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "HEAD-004",
+          "name": "四级及以下标题",
+          "category": "heading",
+          "phase": "P1",
+          "severity": "warning",
+          "profiles": [
+            "sci_eng"
+          ],
+          "spec": "四级标题用 N.N.N.N，小四号宋体加粗；四级以下依次用（1）→①→A→a，小四号宋体，左起顶格，1.5 倍行距，段前段后无间距",
+          "expected": {
+            "l4": {
+              "pattern": "^\\d+\\.\\d+\\.\\d+\\.\\d+\\s*.+$",
+              "size_pt": 12,
+              "east_asia": "宋体",
+              "bold": true
+            },
+            "l5_plus": {
+              "patterns": [
+                "^（\\d+）",
+                "^[①-⑳]",
+                "^[A-Z][.、]",
+                "^[a-z][.、]"
+              ],
+              "size_pt": 12,
+              "east_asia": "宋体"
+            },
+            "before_lines": 0,
+            "after_lines": 0
+          },
+          "source": "L88",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "HEAD-004",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "HEAD-005",
+          "name": "文经管标题体系",
+          "category": "heading",
+          "phase": "P1",
+          "severity": "error",
+          "profiles": [
+            "humanities"
+          ],
+          "spec": "章=“一、”（三号黑体，首行缩进 2 字符，段前 1 行、段后无间距）；节=“（一）”（四号黑体，首行缩进 2 字符，段前 0.5 行）；小节=“1.”（小四黑体，首行缩进 2 字符，段前段后无间距）",
+          "expected": {
+            "l1": {
+              "pattern": "^[一二三四五六七八九十]+、",
+              "size_pt": 16,
+              "east_asia": "黑体",
+              "first_line_chars": 200,
+              "before_lines": 100,
+              "after_lines": 0
+            },
+            "l2": {
+              "pattern": "^（[一二三四五六七八九十]+）",
+              "size_pt": 14,
+              "east_asia": "黑体",
+              "first_line_chars": 200,
+              "before_lines": 50,
+              "after_lines": 0
+            },
+            "l3": {
+              "pattern": "^\\d+[.、]",
+              "size_pt": 12,
+              "east_asia": "黑体",
+              "first_line_chars": 200,
+              "before_lines": 0,
+              "after_lines": 0
+            }
+          },
+          "source": "L89",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "HEAD-005",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "HEAD-006",
+          "name": "标题编号合法性与连续性",
+          "category": "heading",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "标题层级依次标出，编号必须连续、不得跳级/重复；目录中的标题要与正文一致",
+          "expected": {
+            "no_level_skip": true,
+            "no_duplicate_number": true,
+            "sequential": true
+          },
+          "source": "L88–L89、L10",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "HEAD-006",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "HEAD-007",
+          "name": "前言/结论/致谢标题",
+          "category": "heading",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "“前言”“结论”“致谢”用三号黑体，两字中间空 2 格；理工农居中，文经管首行缩进 2 字符；1.5 倍行距，段前 1 行；结论、致谢格式同前言",
+          "expected": {
+            "texts": [
+              "前言",
+              "结论",
+              "致谢"
+            ],
+            "size_pt": 16,
+            "east_asia": "黑体",
+            "line_spacing": 1.5,
+            "before_lines": 100,
+            "alignment": {
+              "sci_eng": "center",
+              "humanities": "left"
+            }
+          },
+          "source": "L85–L86、L97–L99",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "HEAD-007",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "TITLE-001",
+          "name": "中文题目",
+          "category": "front",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "中文题目三号黑体，可分成 1 或 2 行居中打印，1.5 倍行距，段前段后各 1 行",
+          "expected": {
+            "size_pt": 16,
+            "east_asia": "黑体",
+            "alignment": "center",
+            "line_spacing": 1.5,
+            "before_lines": 100,
+            "after_lines": 100,
+            "max_lines": 2
+          },
+          "source": "L7、L72",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "TITLE-001",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "TITLE-002",
+          "name": "英文题目",
+          "category": "front",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "英文题目三号首字母大写 Times New Roman，加粗，可分成 1–3 行居中，1.5 倍行距，段前段后各 1 行",
+          "expected": {
+            "size_pt": 16,
+            "ascii": "Times New Roman",
+            "bold": true,
+            "alignment": "center",
+            "line_spacing": 1.5,
+            "before_lines": 100,
+            "after_lines": 100,
+            "max_lines": 3
+          },
+          "source": "L73",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "TITLE-002",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "ABS-001",
+          "name": "中文摘要标题",
+          "category": "front",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "中文题目下一行居中打印“摘要”二字（三号黑体），字间空 2 格，1.5 倍行距，段前段后各 1 行",
+          "expected": {
+            "text": "摘要",
+            "size_pt": 16,
+            "east_asia": "黑体",
+            "alignment": "center",
+            "line_spacing": 1.5,
+            "before_lines": 100,
+            "after_lines": 100,
+            "char_gap": 2
+          },
+          "source": "L75",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "ABS-001",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "ABS-002",
+          "name": "中文摘要正文",
+          "category": "front",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "摘要内容小四号宋体，每段首行缩进 2 字符，1.5 倍行距，两端对齐；中文摘要 300～600 字（设计类 200～400 字）",
+          "expected": {
+            "size_pt": 12,
+            "east_asia": "宋体",
+            "ascii": "Times New Roman",
+            "first_line_chars": 200,
+            "line_spacing": 1.5,
+            "alignment": "justify",
+            "length_range": [
+              300,
+              600
+            ]
+          },
+          "source": "L76、L8、L37",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "ABS-002",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "ABS-003",
+          "name": "英文摘要标题",
+          "category": "front",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "英文题目下 1 行居中打印“Abstract”（三号 Times New Roman），1.5 倍行距，段前段后各 1 行",
+          "expected": {
+            "text": "Abstract",
+            "size_pt": 16,
+            "ascii": "Times New Roman",
+            "alignment": "center",
+            "line_spacing": 1.5,
+            "before_lines": 100,
+            "after_lines": 100
+          },
+          "source": "L77",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "ABS-003",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "ABS-004",
+          "name": "英文摘要正文",
+          "category": "front",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "英文摘要内容小四号 Times New Roman，每段首行缩进 2 字符，1.5 倍行距，两端对齐",
+          "expected": {
+            "size_pt": 12,
+            "ascii": "Times New Roman",
+            "first_line_chars": 200,
+            "line_spacing": 1.5,
+            "alignment": "justify"
+          },
+          "source": "L78",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "ABS-004",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "KW-001",
+          "name": "中文关键词",
+          "category": "front",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "中文摘要内容下 1 行打印“关键词”三字（小四号黑体，左对齐，首行缩进 2 字符，1.5 倍行距，段前段后各 1 行），其后关键词小四号宋体；3–5 个，分号隔开，最后一个后不加标点",
+          "expected": {
+            "label": "关键词",
+            "label_size_pt": 12,
+            "label_east_asia": "黑体",
+            "body_size_pt": 12,
+            "body_east_asia": "宋体",
+            "count_range": [
+              3,
+              5
+            ],
+            "separator": "；",
+            "trailing_punctuation": false,
+            "first_line_chars": 200,
+            "before_lines": 100,
+            "after_lines": 100
+          },
+          "source": "L80、L9",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "KW-001",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "KW-002",
+          "name": "英文关键词",
+          "category": "front",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "英文摘要内容下一行打印“Key words”（小四号 Times New Roman，加粗，左对齐，首行缩进 2 字符，段前段后各 1 行），其后关键词小四号 Times New Roman；分号（加 1 个半角字符）隔开，最后一个后无标点",
+          "expected": {
+            "label": "Key words",
+            "label_size_pt": 12,
+            "label_ascii": "Times New Roman",
+            "label_bold": true,
+            "body_size_pt": 12,
+            "body_ascii": "Times New Roman",
+            "count_range": [
+              3,
+              5
+            ],
+            "separator": "; ",
+            "trailing_punctuation": false
+          },
+          "source": "L81",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "KW-002",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "TOC-001",
+          "name": "目录标题与条目样式",
+          "category": "toc",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "“目录”二字三号黑体居中，两字中间空 2 格，1.5 倍行距，段前段后各 1 行；一级标题小四号黑体，其他级别小四号宋体；阿拉伯数字用 Times New Roman；一级顶格、二级缩进 2 字符、三级缩进 4 字符",
+          "expected": {
+            "title": "目录",
+            "title_size_pt": 16,
+            "title_east_asia": "黑体",
+            "title_alignment": "center",
+            "entry_size_pt": 12,
+            "level1_east_asia": "黑体",
+            "others_east_asia": "宋体",
+            "number_ascii": "Times New Roman",
+            "indent_chars": {
+              "1": 0,
+              "2": 200,
+              "3": 400
+            }
+          },
+          "source": "L82–L83、L10",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "TOC-001",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "TOC-002",
+          "name": "目录完整性",
+          "category": "toc",
+          "phase": "P1",
+          "severity": "warning",
+          "profiles": [
+            "*"
+          ],
+          "spec": "目录列出论文的一级、二级和三级标题并标明页码；目录中的标题与正文标题一致，页码与正文一致",
+          "expected": {
+            "includes_levels": [
+              1,
+              2,
+              3
+            ],
+            "matches_headings": true,
+            "page_numbers_updateable": true
+          },
+          "source": "L10、L83",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "TOC-002",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "HF-001",
+          "name": "页眉样式",
+          "category": "header_footer",
+          "phase": "P1",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "从摘要到最后一页均有页眉；小五号宋体，1 倍行距，居中；文字下边框为双实线 0.5 磅",
+          "expected": {
+            "size_pt": 9,
+            "east_asia": "宋体",
+            "line_spacing": 1.0,
+            "alignment": "center",
+            "bottom_border": {
+              "style": "double",
+              "size_pt": 0.5
+            },
+            "starts_at": "摘要"
+          },
+          "source": "L69",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "HF-001",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "HF-002",
+          "name": "页眉文字",
+          "category": "header_footer",
+          "phase": "P1",
+          "severity": "warning",
+          "profiles": [
+            "*"
+          ],
+          "spec": "页眉文字与封面对照，分别为“商丘学院应用科技学院毕业论文”或“商丘学院应用科技学院毕业设计说明书”",
+          "expected": {
+            "allowed_texts": [
+              "商丘学院应用科技学院毕业论文",
+              "商丘学院应用科技学院毕业设计说明书"
+            ],
+            "match": "与封面/题目类型一致"
+          },
+          "source": "L69",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "HF-002",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "HF-003",
+          "name": "页码格式",
+          "category": "header_footer",
+          "phase": "P1",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "从摘要到目录页码为罗马数字；从前言到最后一页为阿拉伯数字；字体小五号 Times New Roman，1 倍行距，页面底部居中",
+          "expected": {
+            "roman_section": "摘要→目录",
+            "arabic_section": "前言→末尾",
+            "size_pt": 9,
+            "ascii": "Times New Roman",
+            "line_spacing": 1.0,
+            "alignment": "center",
+            "position": "bottom"
+          },
+          "source": "L70",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "HF-003",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "FIG-001",
+          "name": "图题（图号+图名）",
+          "category": "float",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "图名置于图下方居中；图名序号五号 Times New Roman，文字五号楷体，序号与文字间空 1 个半角字符，1.5 倍行距",
+          "expected": {
+            "position": "below",
+            "alignment": "center",
+            "number_size_pt": 10.5,
+            "number_ascii": "Times New Roman",
+            "text_size_pt": 10.5,
+            "text_east_asia": "楷体",
+            "separator": " ",
+            "line_spacing": 1.5
+          },
+          "source": "L92",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "FIG-001",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "FIG-002",
+          "name": "图编号规则与连续性",
+          "category": "float",
+          "phase": "P1",
+          "severity": "warning",
+          "profiles": [
+            "*"
+          ],
+          "spec": "理工农：图号逐章单独编序（如图6-10）；文经管：按出现顺序编号（图1、图2…）；图号必须连续，不得重复或跳跃；仅有一图时图名前加“附图”",
+          "expected": {
+            "sci_eng": "^图\\d+-\\d+",
+            "humanities": "^图\\d+",
+            "continuous": true,
+            "unique": true
+          },
+          "source": "L61、L93",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "FIG-002",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "TAB-001",
+          "name": "三线表样式",
+          "category": "float",
+          "phase": "P1",
+          "severity": "warning",
+          "profiles": [
+            "*"
+          ],
+          "spec": "表格为三线表；表格结构简洁，各栏标注量和单位；表内数字上下对齐，不得用“同上/同左”",
+          "expected": {
+            "style": "three_line",
+            "header_row_rule": "0.75pt bottom border",
+            "no_vertical_borders": true,
+            "no_inner_horizontal_borders": true,
+            "top_bottom_border_pt": 1.5
+          },
+          "source": "L60、L95",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "TAB-001",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "TAB-002",
+          "name": "表题与表内文字",
+          "category": "float",
+          "phase": "P1",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "表名置于表格上方居中；表名序号五号 Times New Roman，标题五号楷体，中间空 1 个半角字符，1.5 倍行距；表内文字五号宋体，1.5 倍行距，居中；注释在表格下方小五号宋体、左对齐、首行缩进 2 字符",
+          "expected": {
+            "position": "above",
+            "alignment": "center",
+            "number_size_pt": 10.5,
+            "number_ascii": "Times New Roman",
+            "text_size_pt": 10.5,
+            "text_east_asia": "楷体",
+            "cell_size_pt": 10.5,
+            "cell_east_asia": "宋体",
+            "cell_alignment": "center",
+            "cell_line_spacing": 1.5,
+            "note_size_pt": 9,
+            "note_first_line_chars": 200
+          },
+          "source": "L95、L60",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "TAB-002",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "EQ-001",
+          "name": "公式与公式编号",
+          "category": "float",
+          "phase": "P1",
+          "severity": "warning",
+          "profiles": [
+            "*"
+          ],
+          "spec": "公式另起一行，居中（或自行调整美观）；重要/后文引用的公式加序号并用圆括号，序号右对齐，序号用阿拉伯数字；公式字体小四号，中文宋体，西文 Times New Roman，1.5 倍行距；公式与序号之间不加线段",
+          "expected": {
+            "own_line": true,
+            "number_in_parentheses": true,
+            "number_alignment": "right",
+            "size_pt": 12,
+            "east_asia": "宋体",
+            "ascii": "Times New Roman",
+            "line_spacing": 1.5,
+            "numbering": {
+              "sci_eng": "^（\\d+-\\d+）$",
+              "humanities": "^（\\d+）$"
+            }
+          },
+          "source": "L62、L96",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "EQ-001",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "REF-001",
+          "name": "参考文献标题",
+          "category": "references",
+          "phase": "P0",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "“参考文献”四个字三号黑体，居中，1.5 倍行距，段前段后各 1 行",
+          "expected": {
+            "text": "参考文献",
+            "size_pt": 16,
+            "east_asia": "黑体",
+            "alignment": "center",
+            "line_spacing": 1.5,
+            "before_lines": 100,
+            "after_lines": 100
+          },
+          "source": "L102",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "REF-001",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "REF-002",
+          "name": "参考文献条目格式",
+          "category": "references",
+          "phase": "P1",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "条目中文字体小四号宋体、西文小四号 Times New Roman，1.5 倍行距，段前段后无间距；序号写在方括号内，每条左对齐，悬挂缩进 2 字符",
+          "expected": {
+            "size_pt": 12,
+            "east_asia": "宋体",
+            "ascii": "Times New Roman",
+            "line_spacing": 1.5,
+            "before_lines": 0,
+            "after_lines": 0,
+            "number_format": "^\\[\\d+\\]",
+            "hanging_indent_chars": 200
+          },
+          "source": "L102–L104",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "REF-002",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "REF-003",
+          "name": "正文引用标注与著录格式",
+          "category": "references",
+          "phase": "P1",
+          "severity": "warning",
+          "profiles": [
+            "*"
+          ],
+          "spec": "正文中按引证先后顺序用阿拉伯数字连续编号，序号置于方括号内作上角标（如“……[5]”）；按 GB/T 7714-2015 著录（8 类示例）",
+          "expected": {
+            "in_text_citation_superscript": true,
+            "sequential_numbering": true,
+            "style": "GB/T 7714-2015",
+            "categories": [
+              "J",
+              "M",
+              "C",
+              "D",
+              "P",
+              "S",
+              "N",
+              "DB/CP/EB"
+            ]
+          },
+          "source": "L103–L104、L17–L33",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "REF-003",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "STRUCT-001",
+          "name": "装订顺序完整",
+          "category": "structure",
+          "phase": "P1",
+          "severity": "warning",
+          "profiles": [
+            "*"
+          ],
+          "spec": "按顺序装订：封面→诚信承诺书→中文摘要→英文摘要→目录→正文→致谢→参考文献→附录→外文资料翻译→封底",
+          "expected": {
+            "order": [
+              "封面",
+              "诚信承诺书",
+              "中文摘要",
+              "英文摘要",
+              "目录",
+              "正文",
+              "致谢",
+              "参考文献",
+              "附录",
+              "外文资料翻译",
+              "封底"
+            ]
+          },
+          "source": "L111–L124",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "STRUCT-001",
+        "changes": []
+      },
+      {
+        "action": "keep",
+        "candidate": {
+          "id": "MISC-001",
+          "name": "数字用法",
+          "category": "structure",
+          "phase": "P1",
+          "severity": "info",
+          "profiles": [
+            "*"
+          ],
+          "spec": "公历世纪、年代、年月日、时间、计数计量用阿拉伯数字；年份不能简写；有效数字全部写出",
+          "expected": {
+            "year_full": true,
+            "significant_digits": true
+          },
+          "source": "L63",
+          "confidence": 1.0,
+          "note": "LLM 评估：与现有规则一致"
+        },
+        "existing_id": "MISC-001",
+        "changes": []
+      },
+      {
+        "action": "new",
+        "candidate": {
+          "id": "FIG-003",
+          "name": "图注释格式",
+          "category": "float",
+          "phase": "P1",
+          "severity": "warning",
+          "profiles": [
+            "*"
+          ],
+          "spec": "注释置于图名下方，1.5倍行距，字体为小五号宋体，左对齐，首行缩进2个字符。",
+          "expected": {
+            "position": "below_figure_title",
+            "size_pt": 9,
+            "east_asia": "宋体",
+            "alignment": "left",
+            "first_line_chars": 200,
+            "line_spacing": 1.5
+          },
+          "source": "L92",
+          "confidence": 0.9,
+          "note": "规范明确要求图注释的格式，现有规则库未包含。"
+        },
+        "existing_id": null,
+        "changes": []
+      },
+      {
+        "action": "new",
+        "candidate": {
+          "id": "TAB-003",
+          "name": "表注释格式",
+          "category": "float",
+          "phase": "P1",
+          "severity": "warning",
+          "profiles": [
+            "*"
+          ],
+          "spec": "注释置于表格下方，1.5倍行距，字体为小五号宋体，左对齐，首行缩进2个字符。",
+          "expected": {
+            "position": "below_table",
+            "size_pt": 9,
+            "east_asia": "宋体",
+            "alignment": "left",
+            "first_line_chars": 200,
+            "line_spacing": 1.5
+          },
+          "source": "L95",
+          "confidence": 0.9,
+          "note": "规范明确要求表注释的格式，现有规则库未包含。"
+        },
+        "existing_id": null,
+        "changes": []
+      },
+      {
+        "action": "new",
+        "candidate": {
+          "id": "APP-001",
+          "name": "附录标题格式",
+          "category": "structure",
+          "phase": "P1",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "“附录”二字用三号黑体居中打印，两字中间空2格，下一行是附录题目（四号黑体居中打印），附录内容格式同正文。",
+          "expected": {
+            "title_text": "附录",
+            "title_size_pt": 16,
+            "title_east_asia": "黑体",
+            "title_alignment": "center",
+            "title_char_gap": 2,
+            "subtitle_size_pt": 14,
+            "subtitle_east_asia": "黑体",
+            "subtitle_alignment": "center",
+            "content_format_same_as_body": true
+          },
+          "source": "L106",
+          "confidence": 0.9,
+          "note": "规范明确要求附录标题格式，现有规则库未包含。"
+        },
+        "existing_id": null,
+        "changes": []
+      },
+      {
+        "action": "new",
+        "candidate": {
+          "id": "APP-002",
+          "name": "多项附录编号",
+          "category": "structure",
+          "phase": "P1",
+          "severity": "warning",
+          "profiles": [
+            "*"
+          ],
+          "spec": "若有多项附录，附录题目可按顺序编号（附录A、附录B，……）。",
+          "expected": {
+            "multiple_appendix_numbering": true,
+            "pattern": "^附录[A-Z]"
+          },
+          "source": "L107",
+          "confidence": 0.9,
+          "note": "规范明确要求多项附录的编号规则，现有规则库未包含。"
+        },
+        "existing_id": null,
+        "changes": []
+      },
+      {
+        "action": "new",
+        "candidate": {
+          "id": "TRANS-001",
+          "name": "外文资料翻译格式",
+          "category": "structure",
+          "phase": "P1",
+          "severity": "error",
+          "profiles": [
+            "*"
+          ],
+          "spec": "“外文资料译文”用三号黑体居中打印，下一行打印外文原文内容（小四Times New Roman字体），另起新页打印中文翻译（小四宋体）。",
+          "expected": {
+            "title_text": "外文资料译文",
+            "title_size_pt": 16,
+            "title_east_asia": "黑体",
+            "title_alignment": "center",
+            "original_text_size_pt": 12,
+            "original_text_ascii": "Times New Roman",
+            "translation_text_size_pt": 12,
+            "translation_text_east_asia": "宋体",
+            "new_page_for_translation": true
+          },
+          "source": "L109",
+          "confidence": 0.9,
+          "note": "规范明确要求外文资料翻译的格式，现有规则库未包含。"
+        },
+        "existing_id": null,
+        "changes": []
+      },
+      {
+        "action": "new",
+        "candidate": {
+          "id": "NOTE-001",
+          "name": "注释格式",
+          "category": "structure",
+          "phase": "P1",
+          "severity": "warning",
+          "profiles": [
+            "*"
+          ],
+          "spec": "注释：在毕业论文写作过程中，有些问题需要在正文之外加以阐述和说明的，作为注释放在当页页脚。",
+          "expected": {
+            "position": "page_footer",
+            "size_pt": 9,
+            "east_asia": "宋体",
+            "line_spacing": 1.0
+          },
+          "source": "L33",
+          "confidence": 0.8,
+          "note": "规范要求注释放在当页页脚，但未明确字体字号，根据上下文推断为小五号宋体，1倍行距。"
+        },
+        "existing_id": null,
+        "changes": []
+      }
+    ],
+    "unmapped": [
+      {
+        "text": "摘要应具有独立性和自含性，即不阅读论文全文也可获得必要的信息，是一篇完整的短文，可独立使用，可引用，可用于工艺推广。",
+        "source": "L8",
+        "reason": "内容要求，无法程序化检查。"
+      },
+      {
+        "text": "摘要中不使用“本文”、“作者”等作为主语，应采用“对…进行了研究”、“报告了…现状”、“进行了…调查”等表达方式。",
+        "source": "L8",
+        "reason": "写作风格要求，无法程序化检查。"
+      },
+      {
+        "text": "英文摘要应与中文摘要内容相符。",
+        "source": "L8",
+        "reason": "内容一致性检查，难以程序化。"
+      },
+      {
+        "text": "关键词是为了文献标引工作从论文中选取出来用以表示全文主体内容信息款目的单词或术语。",
+        "source": "L9",
+        "reason": "定义性描述，无法程序化检查。"
+      },
+      {
+        "text": "从摘要中挑选或概括出3～5个最能表达主要内容的词作为关键词。",
+        "source": "L9",
+        "reason": "关键词选取质量，无法程序化检查。"
+      },
+      {
+        "text": "目录中的标题要与正文中的标题一致，页码要与正文中的页码相一致。",
+        "source": "L10",
+        "reason": "一致性检查需要复杂逻辑，现有规则TOC-002已部分覆盖，但完全程序化困难。"
+      },
+      {
+        "text": "前言（引言）：是论文的开头，主要说明国内外相关研究现状及现实意义、对所研究问题的认识，并提出论文的中心论点等。",
+        "source": "L12",
+        "reason": "内容要求，无法程序化检查。"
+      },
+      {
+        "text": "本论：是毕业论文的主体，包括研究内容与方法、结果与分析（讨论）、结论与建议等。在本部分要对所运用分析解决问题的理论和方法、研究内容与结果、论证的观点等作出阐述，写作时应注意区别那些是已知的（前人已有的的研究），哪些是作者首次提出来的，哪些是经过作者改进的，须交代清楚，尽量反映出自己的研究能力和学术水平。",
+        "source": "L13",
+        "reason": "内容与写作要求，无法程序化检查。"
+      },
+      {
+        "text": "结论：是毕业论文的收尾部分，是围绕本论所作的结束语。其基本要点就是总结全文、加深题意，要概括准确、措辞严谨、语意清楚，不能模棱两可、含糊其词，且肯定和否定要明确，突出研究的新进展或主要结论性成果。",
+        "source": "L14",
+        "reason": "内容与写作要求，无法程序化检查。"
+      },
+      {
+        "text": "致谢：简述自己完成毕业论文工作的体会，并对指导教师和协助完成毕业论文的有关人员表达谢意。",
+        "source": "L15",
+        "reason": "内容要求，无法程序化检查。"
+      },
+      {
+        "text": "参考文献一般要著录最必要、最新的文献，且只著录公开发表的文献。",
+        "source": "L16",
+        "reason": "文献选择要求，无法程序化检查。"
+      },
+      {
+        "text": "参考文献中作者不超过三位时全部列出，超过三位时只列前三位，后面加“等”或“etc”；作者姓名之间用逗号隔开；中外人名一律采用姓在前、名在后的著录法。",
+        "source": "L16",
+        "reason": "著录细节，部分可程序化但复杂，现有规则REF-003已覆盖部分，但作者数量等未完全覆盖。"
+      },
+      {
+        "text": "表格中各栏都应标注量和相应的单位。",
+        "source": "L60",
+        "reason": "内容要求，无法程序化检查。"
+      },
+      {
+        "text": "表格内数字须上下对齐，相邻栏内的数值相同时，不能用“同上”、“同左”和其它类似词汇，应一一重新标注。",
+        "source": "L60",
+        "reason": "内容与格式细节，难以程序化检查。"
+      },
+      {
+        "text": "绘图必须工整、清晰、规范。其中机械零件图按机械制图规格要求；示意图应能清楚反映图示内容。",
+        "source": "L94",
+        "reason": "质量要求，无法程序化检查。"
+      },
+      {
+        "text": "公式原则上居中，若公式较长，请自定，美观即可。",
+        "source": "L96",
+        "reason": "美观性判断，无法程序化检查。"
+      },
+      {
+        "text": "软件程序代码清单要按软件文档格式附在论文后面，不附在论文内。",
+        "source": "L64",
+        "reason": "内容组织要求，无法程序化检查。"
+      },
+      {
+        "text": "毕业论文（设计说明书）应采用汉语（外语专业用外语）撰写。",
+        "source": "L66",
+        "reason": "语言选择，无法程序化检查。"
+      },
+      {
+        "text": "封面（按规定格式打印）",
+        "source": "L67",
+        "reason": "格式由模板规定，无法程序化检查。"
+      },
+      {
+        "text": "承诺书（按规定格式打印，手写签字）",
+        "source": "L68",
+        "reason": "手写签字，无法程序化检查。"
+      },
+      {
+        "text": "用统一封面装订成册。",
+        "source": "L66",
+        "reason": "物理装订要求，无法程序化检查。"
+      },
+      {
+        "text": "毕业论文或毕业设计说明书按以下顺序装订：...",
+        "source": "L112-L124",
+        "reason": "装订顺序，现有规则STRUCT-001已覆盖，但物理装订无法程序化检查。"
+      },
+      {
+        "text": "个别专业可以结合本专业特点参照执行。",
+        "source": "L125",
+        "reason": "灵活性条款，无法程序化检查。"
+      }
+    ],
+    "dropped": []
+  }
+}

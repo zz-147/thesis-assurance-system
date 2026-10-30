@@ -1,0 +1,197 @@
+<view class="page">
+  <view wx:if="{{loading}}" class="state-box">
+    <view class="state-title">加载中…</view>
+    <view class="state-desc">正在获取接龙详情</view>
+  </view>
+
+  <view wx:elif="{{errorText}}" class="card state-box">
+    <view class="state-title">接龙加载失败</view>
+    <view class="state-desc">{{errorText}}</view>
+    <view class="state-action">
+      <button class="btn btn-ghost btn-mini" bindtap="onRetry">重试</button>
+      <button class="btn btn-plain btn-mini" bindtap="onBackHome">返回首页</button>
+    </view>
+  </view>
+
+  <block wx:else>
+    <!-- 接龙信息 + 分享 -->
+    <view class="card">
+      <view class="detail-title">{{collection.title}}</view>
+      <view class="code-row">
+        <text class="code-chip big">{{code}}</text>
+        <view class="link" bindtap="onCopyCode">复制接龙码</view>
+      </view>
+      <view class="meta-row">
+        <text class="muted">发起人</text>
+        <text class="meta-value">{{collection.owner}}</text>
+      </view>
+      <view class="meta-row">
+        <text class="muted">检查规范</text>
+        <text class="meta-value">{{rulesetName}}</text>
+      </view>
+      <view class="meta-row">
+        <text class="muted">提交情况</text>
+        <text class="meta-value">{{collection.submissionText}}</text>
+      </view>
+      <view class="meta-row">
+        <text class="muted">截止时间</text>
+        <text class="meta-value {{collection.duePast ? 'due-past' : ''}}">{{collection.dueText}}</text>
+      </view>
+      <view class="meta-row">
+        <text class="muted">创建时间</text>
+        <text class="meta-value">{{collection.createdAt}}</text>
+      </view>
+      <view wx:if="{{collection.note}}" class="note-box">
+        <view class="note-label">发起人说明</view>
+        <view class="note-text">{{collection.note}}</view>
+      </view>
+      <button class="btn btn-ghost btn-block share-btn" open-type="share">分享给同学 · 一起提交</button>
+    </view>
+
+    <!-- 提交文档 -->
+    <view class="card">
+      <view class="card-head">
+        <text class="section-title">提交我的文档</text>
+        <text class="section-count">.docx · ≤10MB</text>
+      </view>
+      <view class="field">
+        <view class="field-label">我的姓名</view>
+        <input
+          class="input"
+          value="{{student}}"
+          bindinput="onStudentInput"
+          maxlength="20"
+          placeholder="填写姓名，便于发起人核对"
+          placeholder-class="input-placeholder"
+        />
+      </view>
+      <button
+        class="btn btn-primary btn-block {{submitting ? 'btn-loading' : ''}}"
+        loading="{{submitting}}"
+        disabled="{{submitting}}"
+        bindtap="onSubmitTap"
+      >{{submitting ? '提交中…' : '从聊天里选 .docx 提交'}}</button>
+      <view class="form-hint">只能从微信聊天记录/聊天文件里选择，不能读取手机任意目录；.doc 请先在电脑上另存为 .docx。</view>
+    </view>
+
+    <!-- 一键审核 -->
+    <view class="card">
+      <view class="card-head">
+        <text class="section-title">一键审核</text>
+        <text class="section-count">批量检查全部文档</text>
+      </view>
+      <button
+        class="btn btn-primary btn-block {{reviewing ? 'btn-loading' : ''}}"
+        loading="{{reviewing}}"
+        disabled="{{reviewing}}"
+        bindtap="onReviewTap"
+      >{{reviewing ? '审核中…' : '一键审核全部文档'}}</button>
+      <view wx:if="{{!review}}" class="form-hint">审核会逐份检查已提交的 .docx，并汇总通过率与共性问题。</view>
+
+      <view wx:if="{{review}}" class="review-result">
+        <view class="pass-rate">
+          <text class="pass-rate-num">{{review.passRateText}}</text>
+          <text class="pass-rate-label">通过率</text>
+        </view>
+        <view class="review-counts">
+          <view class="review-count">
+            <text class="review-num review-num-error">{{review.error}}</text>
+            <text class="review-count-label">错误</text>
+          </view>
+          <view class="review-count">
+            <text class="review-num review-num-warning">{{review.warning}}</text>
+            <text class="review-count-label">警告</text>
+          </view>
+          <view class="review-count">
+            <text class="review-num">{{review.info}}</text>
+            <text class="review-count-label">提示</text>
+          </view>
+        </view>
+        <view class="review-line">已检查 {{review.checked}} / {{review.total}} 份 · 未通过 {{review.failed}} 份</view>
+        <view wx:if="{{review.failed > 0}}" class="review-warn">有 {{review.failed}} 份检查失败（文件损坏或不是有效 .docx），可以让同学重新提交。</view>
+
+        <view class="top-title">共性问题 Top（按出现次数）</view>
+        <view wx:if="{{topRules.length === 0}}" class="muted small">未发现共性问题。</view>
+        <view wx:for="{{topRules}}" wx:key="rule" class="top-rule">
+          <text class="top-rule-label">{{item.label}}</text>
+          <text class="top-rule-count">×{{item.count}}</text>
+        </view>
+        <view class="review-time">审核时间：{{reviewAt}}</view>
+      </view>
+    </view>
+
+    <!-- 提交列表 -->
+    <view class="card">
+      <view class="card-head">
+        <text class="section-title">提交记录</text>
+        <text class="section-count">{{submissions.length}} 份</text>
+      </view>
+
+      <view wx:if="{{submissions.length === 0}}" class="state-box inner">
+        <view class="state-title">还没有人提交</view>
+        <view class="state-desc">把接龙分享到班级群，同学从聊天卡片进入后即可选择 .docx 提交。</view>
+      </view>
+
+      <scroll-view wx:else class="sub-scroll" style="height: {{subListHeight}}rpx" scroll-y>
+        <view
+          class="sub-item"
+          wx:for="{{submissions}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="onReportTap"
+        >
+          <view class="sub-head">
+            <text class="sub-name">{{item.student}}</text>
+            <text class="tag {{item.statusClass}}">{{item.status}}</text>
+          </view>
+          <view class="sub-file">{{item.filename}}</view>
+          <view class="sub-foot">
+            <text class="sub-counts">{{item.countsText}}</text>
+            <text class="sub-time">{{item.createdAt}}</text>
+          </view>
+          <view class="sub-report-hint">{{reportLoadingId === item.id ? '报告加载中…' : '点这一行查看报告摘要 ›'}}</view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 单份报告摘要（点提交记录某一行后展示） -->
+    <view wx:if="{{report}}" class="card" id="report-card">
+      <view class="card-head">
+        <text class="section-title">报告摘要</text>
+        <view class="link" bindtap="onCloseReport">关闭</view>
+      </view>
+      <view class="report-file">{{report.fileText}}</view>
+      <view class="report-meta">{{report.profileLabel}} · {{report.generatedAt}}</view>
+      <view class="report-chips">
+        <text class="chip chip-error report-chip">错误 {{report.error}}</text>
+        <text class="chip chip-warning report-chip">警告 {{report.warning}}</text>
+        <text class="chip chip-info report-chip">提示 {{report.info}}</text>
+      </view>
+      <view class="report-line">{{report.rulesText}}</view>
+      <view class="report-line">{{report.statsText}}</view>
+
+      <view class="top-title">问题最多的规则</view>
+      <view wx:if="{{report.byRule.length === 0}}" class="muted small">未发现问题（已实现规则范围内）。</view>
+      <view wx:for="{{report.byRule}}" wx:key="rule" class="rule-row">
+        <text class="rule-label">{{item.label}}</text>
+        <text class="rule-count">×{{item.count}}</text>
+      </view>
+
+      <view class="top-title">问题明细（共 {{report.issueTotal}} 条，最多展示 30 条）</view>
+      <scroll-view class="issue-scroll" scroll-y>
+        <view wx:for="{{report.issues}}" wx:key="key" class="issue-item">
+          <view class="issue-head">
+            <text class="issue-level {{item.levelClass}}">{{item.level}}</text>
+            <text class="issue-rule">{{item.rule}} {{item.title}}</text>
+          </view>
+          <view class="issue-loc">位置：{{item.locator}}</view>
+          <view class="issue-msg">{{item.message}}</view>
+        </view>
+        <view wx:if="{{report.issues.length === 0}}" class="muted small">没有不符合项。</view>
+        <view wx:if="{{report.moreCount > 0}}" class="muted small">…… 其余 {{report.moreCount}} 条未展示，完整报告见后端 JSON。</view>
+      </scroll-view>
+    </view>
+
+    <view class="footer-tip">从分享卡片进入会自动加载本接龙 · 下拉可刷新</view>
+  </block>
+</view>

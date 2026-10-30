@@ -1,0 +1,316 @@
+.detail-title {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.4;
+  word-break: break-all;
+}
+
+.code-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16rpx 0 20rpx;
+}
+
+.note-box {
+  margin-top: 20rpx;
+  padding: 18rpx 20rpx;
+  background: #f8fafc;
+  border-radius: 12rpx;
+}
+
+.note-label {
+  margin-bottom: 6rpx;
+  font-size: 22rpx;
+  color: #94a3b8;
+}
+
+.note-text {
+  font-size: 26rpx;
+  color: #334155;
+  line-height: 1.6;
+  word-break: break-all;
+}
+
+.share-btn {
+  margin-top: 24rpx;
+}
+
+/* -- 一键审核结果 ------------------------------------------------------ */
+.review-result {
+  margin-top: 28rpx;
+  padding-top: 24rpx;
+  border-top: 1rpx solid #f1f5f9;
+}
+
+.pass-rate {
+  display: flex;
+  align-items: baseline;
+}
+
+.pass-rate-num {
+  font-size: 72rpx;
+  font-weight: 700;
+  line-height: 1;
+  color: #16a34a;
+}
+
+.pass-rate-label {
+  margin-left: 12rpx;
+  font-size: 24rpx;
+  color: #64748b;
+}
+
+.review-counts {
+  display: flex;
+  margin: 20rpx 0 12rpx;
+  padding: 18rpx 0;
+  background: #f8fafc;
+  border-radius: 14rpx;
+}
+
+.review-count {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.review-num {
+  font-size: 38rpx;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #334155;
+}
+
+.review-num-error {
+  color: #dc2626;
+}
+
+.review-num-warning {
+  color: #d97706;
+}
+
+.review-count-label {
+  font-size: 22rpx;
+  color: #94a3b8;
+}
+
+.review-line {
+  font-size: 24rpx;
+  color: #475569;
+}
+
+.review-warn {
+  margin-top: 10rpx;
+  padding: 12rpx 16rpx;
+  font-size: 22rpx;
+  color: #b45309;
+  background: #fffbeb;
+  border-radius: 10rpx;
+  line-height: 1.5;
+}
+
+.top-title {
+  margin: 26rpx 0 12rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #334155;
+}
+
+.top-rule {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10rpx 0;
+  border-bottom: 1rpx solid #f8fafc;
+}
+
+.top-rule-label {
+  flex: 1;
+  margin-right: 16rpx;
+  font-size: 24rpx;
+  color: #475569;
+  word-break: break-all;
+}
+
+.top-rule-count {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #dc2626;
+}
+
+.review-time {
+  margin-top: 16rpx;
+  font-size: 22rpx;
+  color: #94a3b8;
+}
+
+/* -- 提交列表 ---------------------------------------------------------- */
+.sub-scroll {
+  margin-top: 4rpx;
+}
+
+.sub-item {
+  margin-bottom: 16rpx;
+  padding: 20rpx 20rpx 16rpx;
+  background: #f8fafc;
+  border: 1rpx solid #eef2f7;
+  border-radius: 14rpx;
+}
+
+.sub-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sub-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.sub-file {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: #475569;
+  word-break: break-all;
+}
+
+.sub-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8rpx;
+}
+
+.sub-counts {
+  font-size: 22rpx;
+  color: #64748b;
+}
+
+.sub-time {
+  font-size: 22rpx;
+  color: #94a3b8;
+}
+
+.sub-report-hint {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  color: #2563eb;
+}
+
+/* -- 单份报告摘要 ------------------------------------------------------ */
+.report-file {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #0f172a;
+  word-break: break-all;
+}
+
+.report-meta {
+  margin-top: 6rpx;
+  font-size: 22rpx;
+  color: #94a3b8;
+}
+
+.report-chips {
+  display: flex;
+  margin: 16rpx 0 6rpx;
+}
+
+.report-chip {
+  margin-right: 12rpx;
+}
+
+.report-line {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #475569;
+}
+
+.rule-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10rpx 0;
+  border-bottom: 1rpx solid #f8fafc;
+}
+
+.rule-label {
+  flex: 1;
+  margin-right: 16rpx;
+  font-size: 24rpx;
+  color: #475569;
+  word-break: break-all;
+}
+
+.rule-count {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #dc2626;
+}
+
+.issue-scroll {
+  height: 720rpx;
+  margin-top: 8rpx;
+  padding: 8rpx 20rpx;
+  background: #f8fafc;
+  border-radius: 14rpx;
+  box-sizing: border-box;
+}
+
+.issue-item {
+  padding: 14rpx 0;
+  border-bottom: 1rpx solid #eef2f7;
+}
+
+.issue-head {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 4rpx;
+}
+
+.issue-level {
+  flex-shrink: 0;
+  margin-right: 12rpx;
+  padding: 2rpx 12rpx;
+  border-radius: 6rpx;
+  font-size: 20rpx;
+}
+
+.level-error {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.level-warning {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.level-info {
+  background: #e0f2fe;
+  color: #075985;
+}
+
+.issue-rule {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #334155;
+  word-break: break-all;
+}
+
+.issue-loc {
+  font-size: 22rpx;
+  color: #94a3b8;
+  word-break: break-all;
+}
+
+.issue-msg {
+  font-size: 24rpx;
+  color: #475569;
+  line-height: 1.5;
+  word-break: break-all;
+}

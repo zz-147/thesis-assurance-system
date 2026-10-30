@@ -1,0 +1,51 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+
+# ---- 真实学生文档 / 学校模板：绝不入库 ----
+# 运行期数据一律放在数据源目录（..\thesis-format\out、..\doc-templates），
+# 仓库内只允许出现脱敏后的 tests/fixtures（由脚本生成）。
+out/
+data/
+*.docx
+*.doc
+*.pdf
+*.png
+*.jpg
+*.jpeg
+eval/*.json
+eval/*.md
+eval/batch/
+eval/batch_real/
+eval/_batch_real_tmp/
+eval/__pycache__/
+
+# 例外：脱敏后的测试样例（需要时用 git add -f 或放开下面的规则）
+# !tests/fixtures/desensitized/**
+
+# ---- 演示资料：仅精选展示素材入库，原始学生/生成文档不入库 ----
+demo/提交/
+demo/批处理输出.txt
+demo/报告/fixed/
+demo/报告/fixed.zip
+!demo/截图/*.png
+!demo/报告/thumbnails/*.png
+!demo/演示报告_*.pdf
+!demo/演示报告_*.docx
+
+# ---- 编辑器/系统 ----
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+
+# ---- ���ز���̽�� ----
+write_probe.txt

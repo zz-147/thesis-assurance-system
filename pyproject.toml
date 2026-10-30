@@ -1,0 +1,41 @@
+[project]
+name = "thesis-assurance-system"
+version = "1.0.0"
+description = "TAS · 论文质量保障系统：规则驱动的论文格式检查、安全修复、文献真实性核验与教师批量工作流"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "zz-147" }]
+license = { text = "MIT" }
+keywords = ["thesis", "docx", "ooxml", "format-check", "education", "python"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Education",
+    "Topic :: Office/Business :: Office Suites",
+]
+dependencies = [
+    "python-docx>=1.1.0",
+    "lxml>=4.9",
+    "openpyxl>=3.1",
+]
+
+[project.scripts]
+tas = "tas.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/zz-147/thesis-assurance-system"
+Repository = "https://github.com/zz-147/thesis-assurance-system"
+Issues = "https://github.com/zz-147/thesis-assurance-system/issues"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

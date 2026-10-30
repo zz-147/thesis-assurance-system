@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "note": "命名规则集（profile）索引：一个 profile = 一套规则文件 + 一个学科体系。教师端上传新规范后，会在这里新增一条（由 spec→rules 自动生成，待实现）。",
+  "profiles": [
+    {
+      "id": "school_default",
+      "name": "商丘学院应用科技学院《毕业论文（设计）撰写规范》（2024 修订）",
+      "discipline": "sci_eng",
+      "rules": "../rules/rules.json",
+      "source": "../thesis-format/writing_standard_clean.txt",
+      "notes": "学院统一规范；当前按理工农标题体系（第N章 / N.N / N.N.N）配置。"
+    },
+    {
+      "id": "school_default_humanities",
+      "name": "同上规范 · 文经管艺教学科",
+      "discipline": "humanities",
+      "rules": "../rules/rules.json",
+      "source": "../thesis-format/writing_standard_clean.txt",
+      "notes": "同一份规则库，学科体系切换为文经管（一、/（一）/1.）；等 HEAD-005 检查器实现后生效。"
+    },
+    {
+      "id": "school_llm_2026",
+      "name": "学院规范（LLM 抽取版·待教师审）",
+      "discipline": "sci_eng",
+      "rules": "school_llm_2026.rules.json",
+      "source": "writing_standard_clean.txt (DeepSeek deepseek-chat 抽取)",
+      "notes": "由 tas spec parse 生成；教师确认后启用"
+    },
+    {
+      "id": "course_demo_other",
+      "name": "演示：XX学院课程论文格式（自定义）",
+      "discipline": "sci_eng",
+      "rules": "course_demo_other.rules.json",
+      "source": "eval/demo_spec_other_discipline.txt (DeepSeek 抽取)",
+      "notes": "由 tas spec parse 生成；教师确认后启用"
+    }
+  ]
+}
