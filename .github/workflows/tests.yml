@@ -1,0 +1,37 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  unittest:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+
+      - name: Run offline test suite
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python -m unittest discover -s tests -v
+
+      - name: Run LLM spec extraction evaluation (offline, cached output)
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python eval/spec_eval/run_spec_eval.py

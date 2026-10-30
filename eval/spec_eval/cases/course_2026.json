@@ -1,0 +1,44 @@
+{
+  "id": "course_2026",
+  "title": "课程论文格式要求（held-out，非训练规范）",
+  "spec_file": "eval/demo_spec_other_discipline.txt",
+  "base_profile": "school_default",
+  "llm_output": "eval/spec_parse_other/candidates.json",
+  "annotation_note": "gold 由人工对照课程规范原文标注；LLM 输出为真实 DeepSeek 运行缓存（deepseek-chat）。只用于评估规范抽取，不参与规则生成。",
+  "expected_modified": {
+    "PAGE-002": {
+      "margin_top_cm": 2.5,
+      "margin_bottom_cm": 2.5,
+      "margin_left_cm": 3.0,
+      "margin_right_cm": 3.0,
+      "gutter_cm": 1.0,
+      "header_distance_cm": 2.0,
+      "footer_distance_cm": 2.0
+    },
+    "BODY-001": {
+      "size_pt": 10.5,
+      "east_asia": "仿宋",
+      "ascii": "Times New Roman"
+    },
+    "BODY-002": {
+      "line_spacing": 1.75
+    },
+    "HEAD-001": {
+      "size_pt": 14,
+      "east_asia": "黑体",
+      "alignment": "center",
+      "line_spacing": 1.5
+    },
+    "HEAD-002": {
+      "size_pt": 12,
+      "east_asia": "黑体",
+      "alignment": "left",
+      "line_spacing": 1.5
+    }
+  },
+  "expected_new": [],
+  "expected_unmapped": {
+    "count": 1,
+    "keywords": ["语言通顺", "逻辑清晰", "观点明确"]
+  }
+}

@@ -1,5 +1,7 @@
 # TAS · 论文质量保障系统（Thesis Assurance System）
 
+[![tests](https://github.com/zz-147/thesis-assurance-system/actions/workflows/tests.yml/badge.svg)](https://github.com/zz-147/thesis-assurance-system/actions/workflows/tests.yml)
+
 > 一个"规范文档驱动"的论文格式检查 / 安全修复 / 真实性核验工具，面向高校教师批量收作业、给反馈的场景：
 > **教师端**：规范文档 → LLM 规则候选 → 教师确认成 profile → 批量体检学生论文 → 逐份报告 + 班级汇总 + 名单核对 + 文献真实性核验 + 首页缩略图；
 > **学生端**：上传论文 → 按规范检查 → 一键安全修复格式（只改格式、不改内容、不动文献）→ 下载新文件；
@@ -8,7 +10,7 @@
 > **项目名**：TAS = Thesis Assurance System（论文质量保障系统）。Python 包名与 CLI 命令保留为 `tas`（历史缩写，兼容已有脚本与环境变量）；GitHub 仓库名为 `thesis-assurance-system`。
 
 - 规范示例：商丘学院应用科技学院《毕业论文（设计）撰写规范（修订）》
-- 状态（2026-10-30）：**功能补齐 + 规则全覆盖 + 可选增强**。规则库 38 条、检查器覆盖 **38/38（P0 23/23，P1 15/15）**；LLM profile 44/44；**321 个测试全绿**（含真实网络/LLM/Word 渲染 live）；Web 双入口 / 批量汇总导出 / 评测指标 / 多学科参数化 / 文档接龙 API+H5 / 老师端一键启动 + 学生反馈包 + 名单核对 + 批量安全修复 + 免安装绿色版 + PAGE-004/NOTE-001 检查器 + TAB-002 自动修复 + **批量首页缩略图 + 批量文献真实性核验** 完成；微信小程序源码在 [miniprogram/](miniprogram/)（上传场景暂缓，保留源码与网络自检）
+- 状态（2026-10-30）：**功能补齐 + 规则全覆盖 + 可选增强 + LLM 抽取评测**。规则库 38 条、检查器覆盖 **38/38（P0 23/23，P1 15/15）**；LLM profile 44/44；**327 个测试全绿**（含真实网络/LLM/Word 渲染 live）；Web 双入口 / 批量汇总导出 / 评测指标 / 多学科参数化 / 文档接龙 API+H5 / 老师端一键启动 + 学生反馈包 + 名单核对 + 批量安全修复 + 免安装绿色版 + PAGE-004/NOTE-001 检查器 + TAB-002 自动修复 + **批量首页缩略图 + 批量文献真实性核验** + **LLM 规范抽取 held-out 评测（2 个规范集全通过）** + GitHub Actions CI 完成；微信小程序源码在 [miniprogram/](miniprogram/)（上传场景暂缓，保留源码与网络自检）
 - 文档：[需求](docs/REQUIREMENTS.md)｜[计划/架构](docs/PLAN.md)｜[**简历指标与评测**](docs/METRICS.md)｜[**老师端使用指南**](docs/TEACHER_GUIDE.md)｜[**小程序/接龙方案**](docs/MINIPROGRAM.md)｜[规则库](rules/rules.json)｜[profile 索引](profiles/index.json)
 - 演示：[一页总结 PDF](demo/演示报告_一页总结.pdf)｜[演示资料包](demo/tas演示资料.zip)｜[演示截图](demo/截图/)
 
@@ -60,7 +62,7 @@ $env:PYTHONIOENCODING = "utf-8"
 & $PY -m tas profiles list
 & $PY -m tas rules --phase P0
 
-# 7) 测试（离线 317 通过 + 4 个 live/渲染默认 skip；开变量后 321/321）
+# 7) 测试（离线 323 通过 + 4 个 live/渲染默认 skip；开变量后 327/327）
 & $PY -m unittest discover -s tests -v
 $env:TAS_LIVE_NETWORK = "1"; $env:TAS_LIVE_LLM = "1"; $env:TAS_RENDER_TEST = "1"
 & $PY -m unittest discover -s tests
@@ -109,6 +111,7 @@ Remove-Item Env:\TAS_LIVE_NETWORK, Env:\TAS_LIVE_LLM, Env:\TAS_RENDER_TEST
 | 引用一致性（越界/缺号/未引用/首次顺序/上标/文献表编号连续性） | `tas refs` | ✅ |
 | 多学科规则集（profile） | `tas profiles list` / `--ruleset` | ✅ |
 | **规范→规则**：LLM 逐条评估 + 新增 + unmapped + diff + 注册 profile | `tas spec parse/apply` | ✅ DeepSeek 实测 |
+| **LLM 规范抽取评测（held-out）**：修改规则/参数/保持/新增/不可程序化 5 类指标 | `python eval/spec_eval/run_spec_eval.py` | ✅ 2 个规范集全通过（course 5/5 修改、school 6/6 新增） |
 | **参数化多规范**：checker/fixer 消费 profile 参数（页面/正文/标题/前置全部） | `--ruleset <id>` | ✅ |
 | **教师端批量 + 班级汇总 + 导出** xlsx（3 Sheet）/csv/html/**学生反馈包** | `tas batch` | ✅ |
 | **老师端一键启动**：双击 bat 启动本地 Web 并自动开浏览器 | `启动老师端.bat` | ✅ 冒烟通过 |
@@ -146,7 +149,7 @@ Remove-Item Env:\TAS_LIVE_NETWORK, Env:\TAS_LIVE_LLM, Env:\TAS_RENDER_TEST
 - **报告可视化（2026-10-30）**：`batch.html` 增加共性问题条形图 + 通过率进度条，纯 CSS（无新依赖）。
 - **P2 规则补齐（2026-10-30）**：PAGE-004 分节/封面页眉页码检查（真实 9 份语料 0 误报）、NOTE-001 脚注格式（直读 `word/footnotes.xml`；LLM profile 44/44）、TAB-002 表内文字自动修复（12 个测试；单元格字号/字体/对齐/行距归一化，幂等、hash 不变）。P2 新增 12 个检查器测试 + 4 个 fixer 测试。
 - **批量首页缩略图 + 文献核验（2026-10-30）**：`tas batch --preview` 生成每份首页 PNG（CLI 冒烟：HTML 内嵌 `<img>` + `thumbnails.zip` 56KB，含说明）；`--refs` 对真实论文 12 条文献核验（每份前 2 条：verified 0 / likely 0 / not_found 2 / error 0，报告含"人工核实"提示）；Web 教师端可勾选两个开关并在结果页展示缩略图网格与文献汇总。
-- **测试**：**321 个全绿**（离线 317 + 4 个 live/渲染默认 skip；开 `TAS_LIVE_NETWORK/TAS_LIVE_LLM/TAS_RENDER_TEST` 后全部通过）。
+- **测试**：**327 个全绿**（离线 323 + 4 个 live/渲染默认 skip；开 `TAS_LIVE_NETWORK/TAS_LIVE_LLM/TAS_RENDER_TEST` 后全部通过）。
 
 ## 真实性核验的边界（重要）
 
@@ -211,7 +214,7 @@ tas/
 │  ├─ web/app.py             # Web 双入口 + 接龙 API + 手机 H5(/m) + 页面预览
 │  ├─ render.py              # docx → PDF（Word COM）→ PNG（WinRT）
 │  ├─ rule_params.py / config.py / docx_io.py / roles.py / report.py
-├─ tests/                    # 321 tests（collections 9、web 12、feedback 3、batch_fix 12、roster 34、p2 12、thumbnails 27、batch_refs 15）
+├─ tests/                    # 327 tests（collections 9、web 12、feedback 3、batch_fix 12、roster 34、p2 12、thumbnails 27、batch_refs 15、spec_eval 6）
 └─ eval/                     # run_eval.py + report.md/json + 样例
 ```
 

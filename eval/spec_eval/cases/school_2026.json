@@ -1,0 +1,21 @@
+{
+  "id": "school_2026",
+  "title": "学院毕业论文规范（真实规范，现有 38 条规则的来源）",
+  "spec_file": "eval/school_spec.txt",
+  "base_profile": "school_default",
+  "llm_output": "eval/spec_parse/candidates.json",
+  "annotation_note": "gold 为规范原文中明确要求、但基础 38 条规则未覆盖的可编程规则（人工核对）；23 条内容/写作/物理装订要求标为不可程序化。LLM 输出为真实 DeepSeek 运行缓存。",
+  "expected_modified": {},
+  "expected_new": [
+    "FIG-003",
+    "TAB-003",
+    "APP-001",
+    "APP-002",
+    "TRANS-001",
+    "NOTE-001"
+  ],
+  "expected_unmapped": {
+    "count": 23,
+    "keywords": []
+  }
+}

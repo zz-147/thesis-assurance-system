@@ -1,0 +1,243 @@
+{
+  "summary": {
+    "total": 2,
+    "passed": 2,
+    "all_passed": true
+  },
+  "cases": [
+    {
+      "case": "course_2026",
+      "title": "课程论文格式要求（held-out，非训练规范）",
+      "passed": true,
+      "modification": {
+        "expected": [
+          "BODY-001",
+          "BODY-002",
+          "HEAD-001",
+          "HEAD-002",
+          "PAGE-002"
+        ],
+        "actual": [
+          "BODY-001",
+          "BODY-002",
+          "HEAD-001",
+          "HEAD-002",
+          "PAGE-002"
+        ],
+        "missing": [],
+        "extra": [],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "params": {
+        "fields_total": 19,
+        "fields_correct": 19,
+        "accuracy": 1.0,
+        "rules_fully_correct": 5,
+        "rules_total": 5
+      },
+      "keep": {
+        "total": 33,
+        "correct": 33,
+        "accuracy": 1.0
+      },
+      "new_rules": {
+        "expected": [],
+        "actual": [],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "unmapped": {
+        "expected": 1,
+        "actual": 1,
+        "keyword_total": 3,
+        "keyword_hits": 3,
+        "recall": 1.0
+      },
+      "rule_details": [
+        {
+          "rule": "BODY-001",
+          "found": true,
+          "fully_correct": true,
+          "fields": {
+            "size_pt": true,
+            "east_asia": true,
+            "ascii": true
+          },
+          "expected": {
+            "size_pt": 10.5,
+            "east_asia": "仿宋",
+            "ascii": "Times New Roman"
+          },
+          "actual": {
+            "size_pt": 10.5,
+            "east_asia": "仿宋",
+            "ascii": "Times New Roman",
+            "bold": false
+          }
+        },
+        {
+          "rule": "BODY-002",
+          "found": true,
+          "fully_correct": true,
+          "fields": {
+            "line_spacing": true
+          },
+          "expected": {
+            "line_spacing": 1.75
+          },
+          "actual": {
+            "line_spacing": 1.75
+          }
+        },
+        {
+          "rule": "HEAD-001",
+          "found": true,
+          "fully_correct": true,
+          "fields": {
+            "size_pt": true,
+            "east_asia": true,
+            "alignment": true,
+            "line_spacing": true
+          },
+          "expected": {
+            "size_pt": 14,
+            "east_asia": "黑体",
+            "alignment": "center",
+            "line_spacing": 1.5
+          },
+          "actual": {
+            "pattern": "^第[一二三四五六七八九十百零〇0-9]+章\\s+.+$",
+            "size_pt": 14,
+            "east_asia": "黑体",
+            "ascii": "Times New Roman",
+            "bold": false,
+            "alignment": "center",
+            "line_spacing": 1.5,
+            "before_lines": 100,
+            "after_lines": 100
+          }
+        },
+        {
+          "rule": "HEAD-002",
+          "found": true,
+          "fully_correct": true,
+          "fields": {
+            "size_pt": true,
+            "east_asia": true,
+            "alignment": true,
+            "line_spacing": true
+          },
+          "expected": {
+            "size_pt": 12,
+            "east_asia": "黑体",
+            "alignment": "left",
+            "line_spacing": 1.5
+          },
+          "actual": {
+            "pattern": "^\\d+\\.\\d+\\s+.+$",
+            "size_pt": 12,
+            "east_asia": "黑体",
+            "bold": false,
+            "alignment": "left",
+            "line_spacing": 1.5,
+            "before_lines": 50,
+            "after_lines": 50
+          }
+        },
+        {
+          "rule": "PAGE-002",
+          "found": true,
+          "fully_correct": true,
+          "fields": {
+            "margin_top_cm": true,
+            "margin_bottom_cm": true,
+            "margin_left_cm": true,
+            "margin_right_cm": true,
+            "gutter_cm": true,
+            "header_distance_cm": true,
+            "footer_distance_cm": true
+          },
+          "expected": {
+            "margin_top_cm": 2.5,
+            "margin_bottom_cm": 2.5,
+            "margin_left_cm": 3.0,
+            "margin_right_cm": 3.0,
+            "gutter_cm": 1.0,
+            "header_distance_cm": 2.0,
+            "footer_distance_cm": 2.0
+          },
+          "actual": {
+            "margin_top_cm": 2.5,
+            "margin_bottom_cm": 2.5,
+            "margin_left_cm": 3.0,
+            "margin_right_cm": 3.0,
+            "gutter_cm": 1.0,
+            "gutter_position": "left",
+            "header_distance_cm": 2.0,
+            "footer_distance_cm": 2.0
+          }
+        }
+      ],
+      "annotated_case": "eval/spec_eval/cases/course_2026.json"
+    },
+    {
+      "case": "school_2026",
+      "title": "学院毕业论文规范（真实规范，现有 38 条规则的来源）",
+      "passed": true,
+      "modification": {
+        "expected": [],
+        "actual": [],
+        "missing": [],
+        "extra": [],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "params": {
+        "fields_total": 0,
+        "fields_correct": 0,
+        "accuracy": 1.0,
+        "rules_fully_correct": 0,
+        "rules_total": 0
+      },
+      "keep": {
+        "total": 38,
+        "correct": 38,
+        "accuracy": 1.0
+      },
+      "new_rules": {
+        "expected": [
+          "APP-001",
+          "APP-002",
+          "FIG-003",
+          "NOTE-001",
+          "TAB-003",
+          "TRANS-001"
+        ],
+        "actual": [
+          "APP-001",
+          "APP-002",
+          "FIG-003",
+          "NOTE-001",
+          "TAB-003",
+          "TRANS-001"
+        ],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "unmapped": {
+        "expected": 23,
+        "actual": 23,
+        "keyword_total": 0,
+        "keyword_hits": 0,
+        "recall": 1.0
+      },
+      "rule_details": [],
+      "annotated_case": "eval/spec_eval/cases/school_2026.json"
+    }
+  ]
+}

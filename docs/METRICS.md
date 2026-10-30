@@ -12,10 +12,10 @@
 | LLM 新抽规则（`school_llm_2026` profile） | 6 条新增全部实现（含 NOTE-001 脚注）→ 该 profile **44/44** |
 | 命令行子命令 | 9 个：`check / fix / refs / batch / preview / web / rules / profiles / spec` |
 | 多学科 profile | 4 个（学院默认 / 文经管 / LLM 抽取版 / 课程自定义示例） |
-| 源码规模 | `src/` 14,562 行 ｜ `tests/` 6,228 行 ｜ `eval/` 1,254 行 ｜ 微信小程序 2,384 行（15 文件） |
-| 自动化测试 | **321 个**（离线 317 通过 + 4 个 live/渲染默认 skip；开环境变量后 321/321 通过） |
+| 源码规模 | `src/` 16,876 行 ｜ `tests/` 7,582 行 ｜ `eval/` 1,700+ 行 ｜ 微信小程序 2,384 行（15 文件） |
+| 自动化测试 | **327 个**（离线 323 通过 + 4 个 live/渲染默认 skip；开环境变量后 327/327 通过） |
 
-测试构成：check 6 ｜ fix 22 ｜ refs 31 ｜ llm 45 ｜ spec_profile 12 ｜ rule_params 3 ｜ front_params 9 ｜ p1_checkers 25 ｜ p2_checkers 12 ｜ batch 22 ｜ eval_metrics 14 ｜ web 12 ｜ render 4 ｜ collections 9 ｜ feedback 3 ｜ batch_fix 12 ｜ roster 34 ｜ packaging 4 ｜ thumbnails 27 ｜ batch_refs 15。
+测试构成：check 6 ｜ fix 22 ｜ refs 31 ｜ llm 45 ｜ spec_profile 12 ｜ rule_params 3 ｜ front_params 9 ｜ p1_checkers 25 ｜ p2_checkers 12 ｜ batch 22 ｜ eval_metrics 14 ｜ web 12 ｜ render 4 ｜ collections 9 ｜ feedback 3 ｜ batch_fix 12 ｜ roster 34 ｜ packaging 4 ｜ thumbnails 27 ｜ batch_refs 15 ｜ spec_eval 6。
 
 ## 2. 核心质量指标（合成变异集，`eval/run_eval.py`）
 
@@ -68,35 +68,49 @@
 - 引用一致性（离线）：越界/缺号/未引用/首次引用顺序/上标/文献表编号连续性。
 - 真实网络 live 测试通过（`TAS_LIVE_NETWORK=1`）。
 
-## 7. 可复现命令
+## 7. LLM 规范抽取评测（held-out，真实 DeepSeek 输出缓存）
+
+把「规范文档 → 规则候选」当作有 ground truth 的抽取任务：修改规则发现、参数字段准确率、保持规则准确率、新增规则发现、不可程序化识别。脚本：`eval/spec_eval/run_spec_eval.py`；报告：[eval/spec_eval/report.md](../eval/spec_eval/report.md)。
+
+| case | 规范 | 期望修改 | 修改 P/R/F1 | 参数准确率 | 保持规则 | 新增 P/R | 不可程序化 |
+|---|---|---|---:|---:|---:|---|---:|
+| `course_2026` | 课程论文格式要求（held-out） | 5 条 | **100% / 100% / 100%** | **19/19 字段** | **33/33** | 0/0 | 1/1 |
+| `school_2026` | 学院毕业论文规范（现有规则来源） | 0 条 | 100% / 100% / 100% | - | **38/38** | **6/6**（全部命中） | 23/23 |
+
+> gold 由人工对照规范原文标注；LLM 输出为真实 `deepseek-chat` 运行缓存，评测完全离线可复现。课程规范是留出集（不是规则来源），用来验证“换一套数值不同的规范，LLM 是否能抽对参数”。
+
+## 8. 可复现命令
 
 ```powershell
 $PY = "D:\dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe"
 $env:PYTHONPATH = "D:\zdsh\work\tas\src"
 Set-Location D:\zdsh\work\tas
 
-& $PY -m unittest discover -s tests -v                 # 191 tests（离线）
+& $PY -m unittest discover -s tests -v                 # 327 tests（离线）
 & $PY eval\run_eval.py --out eval\report.md            # 质量指标（第 2 节数字）
+& $PY eval\spec_eval\run_spec_eval.py                  # LLM 规范抽取评测（第 7 节）
 & $PY -m tas batch "D:\zdsh\work\thesis-format\out" --out-dir eval\batch_real   # 第 3 节数字
 & $PY -m tas spec parse "eval\demo_spec_other_discipline.txt" --out-dir eval\spec_parse_other   # 第 4 节
 & $PY -m tas web --port 8765                           # 浏览器打开 http://127.0.0.1:8765
 ```
 
-## 8. 口径与局限（写简历/面试时必须能解释）
+## 9. 口径与局限（写简历/面试时必须能解释）
 
 1. 质量指标（第 2 节）来自**合成变异集**：对合规文档注入已知格式错误，用于衡量"规则能否稳定检出/修复"，不代表真实学生文档的全部分布；真实语料结果见第 3 节。
 2. 真实语料为 9 份生成论文（同一生成器产物），系统性偏差集中；**未使用真实学生隐私文档做评测**。
 3. 评测只统计当前已实现规则（38 条）；新增规则后重跑 `eval/run_eval.py` 自动更新。
 4. 规则边界：PAGE-004 只报告不自动修复（结构改动需人工）；NOTE-001 只报显式设置且不符的脚注（继承样式不报）；TAB-002 单元格可自动修复，但表题位置/表注仍只报告；目录页码一致性需渲染引擎；查重/AIGC 需外部服务。
 5. 文献核验的 `not_found` 只表示未在已查索引中找到，中文期刊覆盖有限，不能作为造假证据。
+6. LLM 抽取评测是小规模 held-out（2 个规范集、5 条修改/6 条新增），**不是标准 benchmark**；标注是人工完成的，参数只校验关键字段；真实业务仍需教师确认与回归。
 
-## 9. 简历 bullet 草稿（数字均可在仓库复现，可按岗位裁剪）
+## 10. 简历 bullet 草稿（数字均可在仓库复现，可按岗位裁剪）
 
 - 独立开发「论文格式规范化与真实性核验工具」（Python / python-docx / OOXML / DeepSeek）：规则库 38 条、检查器覆盖 **38/38（P0 23/23，P1 15/15）**；合成变异集 116 处注入检出率 **100%**、误报率 **0%**；安全修复后 P0 通过率 **100%**、内容零改动（hash **100%**）；单份检查 0.09s、批量吞吐 **9.8 份/秒**。
 - 教师端「规范文档 → 规则」：DeepSeek 从 9455 字学院规范 **38/38** 逐条评估（11s），抽出 6 条人工遗漏规则、23 条 unmapped；支持多学科 profile 参数化——同一论文换规范错误数 5→299 并一键修复到目标格式；Web 双入口 + 班级批量汇总导出 xlsx。
-- 文献真实性：GB/T 7714 解析 + Crossref/OpenAlex/arXiv 元数据核验（verified/likely/not_found + 证据 URL，`not_found ≠ 造假`）+ 引用一致性离线检查；**321 个自动化测试**，key 全程环境变量+打码。
+- 文献真实性：GB/T 7714 解析 + Crossref/OpenAlex/arXiv 元数据核验（verified/likely/not_found + 证据 URL，`not_found ≠ 造假`）+ 引用一致性离线检查；**327 个自动化测试**，key 全程环境变量+打码。
 - **规则全覆盖 + 表格修复**：PAGE-004 分节/封面页眉页码、NOTE-001 脚注（直读 `word/footnotes.xml`）检查器补齐 → 基础规则 **38/38**、LLM profile **44/44**；TAB-002 表内文字自动修复（真实论文 10 项，复检 0 error）；新增 16 个测试（12 检查器 + 4 修复器）。
 - **批量缩略图 + 文献核验（可选）**：`thumbnails.py` 批量首页 PNG（Word COM；**27 tests**，含 fake renderer/zip/映射/live skip）；`batch_refs.py` 批量文献真实性核验（verified/likely/not_found/error + JSON/MD，**15 tests**，fake fetcher 离线覆盖）；CLI `--preview/--refs` + Web 教师端勾选；真实论文 12 条文献抽 2 条核验、报告含"人工核实"提示。
+- **LLM 规范抽取评测（held-out）**：2 个规范集（课程规范/学院规范）全部通过——课程规范 5/5 条修改、19/19 个参数字段、33/33 条保持；学院规范 6/6 条新增规则、23/23 条不可程序化；**6 个离线测试** + GitHub Actions CI。
 - **老师端增强（名单/修复/免安装）**：名单核对（缺交/重复/命名不规范，xlsx/csv/txt 名单；34 tests）、批量安全修复（全部 `_fixed.docx` + fixed.zip + 修复报告；12 tests）、HTML 报告条形图/通过率可视化、免安装绿色版（内置 Python 3.12 运行时，50.8 MB 目录 / 18.5 MB zip；实测 CLI 检查 + Web 服务，无需安装/联网）；Web 教师端一键勾选。
 - **老师收文件工作流**：双击启动器自动起服务并打开浏览器；教师端「选择整个文件夹」批量收 `.docx` → 批量检查 → 导出学生反馈包（经典 PowerShell 兼容 UTF-8 BOM；反馈包 = 班级汇总 + 每份文档一个可直接转发的 txt）。9 份真实语料实测生成 10 条目反馈 zip；3 个自动化测试。
 - **文档接龙（单界面，不分教师/学生端）**：面向班级"微信群接龙收文档"场景——发起接龙 → 同学从聊天记录选 `.docx` 提交 → 提交即检查 → 任何人一键审核（通过率/共性问题 Top/逐份报告）。实现后端 API（本地 JSON 存储）+ 手机 H5 + 原生微信小程序（15 文件）；9 个自动化测试，并完成真实后端全链路联调（创建→提交→审核→报告，`pass_rate`/`top_rules`/中文错误均正确）；**微信开发者工具 2.02.0 模拟器实测**首页/发起/详情/审核/报告全流程（真实论文 2 份审核 0% 通过、错误 620；合规文档 100% 通过），`chooseMessageFile` 原生选文件待真机验证。

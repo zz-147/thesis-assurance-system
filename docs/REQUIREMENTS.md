@@ -123,6 +123,7 @@
 | FR-29 | **TAB-002 表内文字自动修复**（字号/字体/对齐/行距归一化） | P1 | ✅ `_fix_tables`：幂等、内容 hash 不变、原文件不动；真实论文 10 项/复检 0 error；4 个测试 |
 | FR-30 | **批量首页缩略图**：每份文档首页 PNG 嵌入 HTML 报告 + thumbnails.zip | P2 | ✅ `thumbnails.py` + CLI `--preview` + Web 勾选；HTML 缩略图列/zip 说明；27 tests（1 live skip） |
 | FR-31 | **批量文献真实性核验**：多文档文献 → verified/likely/not_found/error + 证据 URL + JSON/MD 报告 | P1 | ✅ `batch_refs.py` + CLI `--refs` + Web 勾选；真实论文 12 条抽 2 条（含 verified DOI 命中）；15 tests（fake fetcher 离线） |
+| FR-32 | **LLM 规范抽取评测**：修改规则/参数/保持/新增/不可程序化 5 类指标 | P1 | ✅ `eval/spec_eval/`：2 个 held-out 规范集全通过（course 5/5 修改、19/19 参数；school 6/6 新增、23/23 unmapped）；6 tests + GitHub Actions CI |
 
 ## 5. 非功能需求
 

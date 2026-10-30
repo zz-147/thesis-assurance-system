@@ -232,7 +232,8 @@ tas/
   - **老师端增强（同轮）**：`batch_fix.py` 批量安全修复（fixed.zip + 修复报告，12 tests）、`roster.py` 名单核对（缺交/重复/命名，xlsx/csv/txt，34 tests）、HTML 报告条形图/通过率可视化、`build_portable.ps1` 免安装绿色版（内置 Python 3.12，50.8 MB 目录 / 18.5 MB zip，实测 CLI+Web）；CLI `--fix/--roster` + Web 教师端一键勾选/粘贴名单。新增 12+34+3+1 测试。
   - **P2 规则补齐（同轮）**：`PAGE-004` 分节/封面页眉页码检查（`check_page004`，真实 9 份语料 0 误报）、`NOTE-001` 脚注（`checkers/notes.py` 直读 `word/footnotes.xml`；LLM profile 44/44）、`TAB-002` 表内文字自动修复（`_fix_tables`：单元格字号/字体/对齐/行距归一化，幂等、hash 不变）；检查器注册进 `ALL_CHECKS`/`IMPLEMENTED_RULES`。新增 12 检查器测试 + 4 fixer 测试；真实论文修复 36 项后复检 0 error（仅剩 STRUCT-001 2 warning）。
   - **可选增强（同轮）**：`thumbnails.py` 批量首页缩略图（Word COM 渲染 + HTML 缩略图列 + `thumbnails.zip`，27 tests）、`batch_refs.py` 批量文献真实性核验（verified/likely/not_found/error + JSON/MD 报告 + 诚实性提示，15 tests）；CLI `tas batch --preview/--refs` + Web 教师端勾选，结果页展示缩略图网格/文献汇总。
-  - **测试 321 全绿**（离线 317 通过 + 4 个 live/渲染默认 skip；开 `TAS_LIVE_NETWORK/TAS_LIVE_LLM/TAS_RENDER_TEST` 后 321/321 全通过）。Web 12 个、接龙 9 个、反馈 3 个、批量修复 12 个、名单 34 个、P2 检查器 12 个、缩略图 27 个、文献核验 15 个、打包/可视化 4 个。
+  - **LLM 规范抽取评测 + CI（2026-10-30）**：新增 `eval/spec_eval/`（2 个 held-out 规范集、gold 人工标注、真实 DeepSeek 缓存输出）：课程规范 5/5 修改、19/19 参数字段、33/33 保持；学院规范 6/6 新增、23/23 不可程序化；报告 `eval/spec_eval/report.md`；新增 6 个离线测试 + GitHub Actions（windows-latest，327 tests + 评测）。
+  - **测试 327 全绿**（离线 323 通过 + 4 个 live/渲染默认 skip；开 `TAS_LIVE_NETWORK/TAS_LIVE_LLM/TAS_RENDER_TEST` 后 327/327 全通过）。Web 12 个、接龙 9 个、反馈 3 个、批量修复 12 个、名单 34 个、P2 检查器 12 个、缩略图 27 个、文献核验 15 个、规范抽取评测 6 个、打包/可视化 4 个。
   - CLI 9 子命令：`check / fix / refs / batch / preview / web / rules / profiles / spec`；简历指标见 [METRICS.md](METRICS.md)。
 
 **剩余（非阻塞，后续增强）**
